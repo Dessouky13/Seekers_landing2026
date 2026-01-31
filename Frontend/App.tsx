@@ -6,6 +6,9 @@ import { NotificationProvider } from './src/context/NotificationContext';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 
+// Check if landing-only mode (for Vercel deployment)
+const isLandingOnly = import.meta.env.VITE_LANDING_ONLY === 'true';
+
 // Static Pages
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
@@ -73,6 +76,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requireAdmin 
 const AppContent: React.FC = () => {
   const { isAuthenticated, isAdmin, isLoading, logout } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Landing-only mode: show only the landing page
+  if (isLandingOnly) {
+    return (
+      <div className="min-h-screen bg-background-light dark:bg-background-dark">
+        <Routes>
+          <Route path="*" element={<LandingPage />} />
+        </Routes>
+      </div>
+    );
+  }
 
   // Show loading while checking auth
   if (isLoading) {

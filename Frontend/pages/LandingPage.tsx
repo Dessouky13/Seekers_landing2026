@@ -1,16 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Logo from '../components/Logo';
 import Modal from '../components/Modal';
+import ComingSoonModal from '../components/ComingSoonModal';
 
 const LandingPage: React.FC = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const [bookingStep, setBookingStep] = useState(1); // 1: Date/Time, 2: Details, 3: Success
-  const [selectedDate, setSelectedDate] = useState<number | null>(null);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [isComingSoonModalOpen, setIsComingSoonModalOpen] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  
+  // Cal.com link from environment or default
+  const calLink = import.meta.env.VITE_CAL_LINK || 'team-seekersai/discovery-call';
+  const contactPhone = import.meta.env.VITE_CONTACT_PHONE || '01211100767';
 
   // Scroll direction detection for hide/show nav
   useEffect(() => {
@@ -43,21 +45,16 @@ const LandingPage: React.FC = () => {
     }
   };
 
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  const timeSlots = ["09:00 AM", "10:30 AM", "01:00 PM", "02:30 PM", "04:00 PM", "05:30 PM"];
-
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const scrollToBooking = (e: React.MouseEvent) => {
     e.preventDefault();
-    setBookingStep(3);
+    const element = document.getElementById('trust');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const resetBooking = () => {
     setIsBookingModalOpen(false);
-    setTimeout(() => {
-      setBookingStep(1);
-      setSelectedDate(null);
-      setSelectedTime(null);
-    }, 300);
   };
 
   return (
@@ -88,11 +85,11 @@ const LandingPage: React.FC = () => {
             ))}
           </div>
           <div className="flex items-center gap-4 md:gap-8">
-            <Link to="/login" className="hidden xs:block text-[11px] md:text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.4em] px-4 md:px-8 py-3 md:py-5 rounded-xl md:rounded-2xl hover:bg-white/5">Portal</Link>
-            <Link to="/register" className="px-5 md:px-12 py-3 md:py-6 bg-primary text-background-dark rounded-xl md:rounded-[2rem] text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4">
+            <button onClick={() => setIsComingSoonModalOpen(true)} className="hidden xs:block text-[11px] md:text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.4em] px-4 md:px-8 py-3 md:py-5 rounded-xl md:rounded-2xl hover:bg-white/5">Portal</button>
+            <button onClick={() => setIsComingSoonModalOpen(true)} className="px-5 md:px-12 py-3 md:py-6 bg-primary text-background-dark rounded-xl md:rounded-[2rem] text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4">
               Get Started
               <span className="material-symbols-outlined text-sm md:text-xl font-black">arrow_forward</span>
-            </Link>
+            </button>
           </div>
         </nav>
       </div>
@@ -109,9 +106,9 @@ const LandingPage: React.FC = () => {
               // NEXT-GEN AUTOMATION FOR THE MENA REGION
             </p>
             <div className="pt-8 md:pt-12 flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-12">
-              <Link to="/register" className="w-full sm:w-auto px-10 md:px-20 py-5 md:py-8 bg-primary text-background-dark rounded-2xl md:rounded-[2.5rem] text-sm md:text-lg font-black shadow-[0_30px_60px_rgba(161,158,255,0.5)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.3em]">
-                Deploy Solutions Now
-              </Link>
+              <button onClick={scrollToBooking} className="w-full sm:w-auto px-10 md:px-20 py-5 md:py-8 bg-primary text-background-dark rounded-2xl md:rounded-[2.5rem] text-sm md:text-lg font-black shadow-[0_30px_60px_rgba(161,158,255,0.5)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.3em]">
+                Book a Discovery Call
+              </button>
               <div className="flex flex-col items-center gap-2 md:gap-4 opacity-40">
                 <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em]">Cairo Headquarters</span>
                 <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em]">Global Infrastructure</span>
@@ -251,107 +248,47 @@ const LandingPage: React.FC = () => {
         </div>
       </footer>
 
-      {/* Booking Modal */}
+      {/* Booking Modal with Cal.com */}
       <Modal 
         isOpen={isBookingModalOpen} 
         onClose={resetBooking} 
-        title={bookingStep === 3 ? "Confirmation" : "Schedule Strategy Session"}
+        title="Schedule Strategy Session"
       >
         <div className="space-y-6">
-          {bookingStep === 1 && (
-            <div className="space-y-8 animate-in fade-in duration-300">
-              <div>
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4 ml-1">Select a Date (October 2023)</p>
-                <div className="grid grid-cols-7 gap-2">
-                  {days.map(d => (
-                    <button 
-                      key={d}
-                      onClick={() => setSelectedDate(d)}
-                      className={`aspect-square rounded-xl text-xs font-black transition-all border ${
-                        selectedDate === d ? 'bg-primary border-primary text-background-dark shadow-lg shadow-primary/20 scale-110' : 'bg-white/5 border-white/10 text-slate-400 hover:border-primary/50'
-                      }`}
-                    >
-                      {d}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4 ml-1">Preferred Time Slot</p>
-                <div className="grid grid-cols-2 gap-3">
-                  {timeSlots.map(t => (
-                    <button 
-                      key={t}
-                      onClick={() => setSelectedTime(t)}
-                      className={`py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
-                        selectedTime === t ? 'bg-primary border-primary text-background-dark shadow-lg shadow-primary/20 scale-105' : 'bg-white/5 border-white/10 text-slate-400 hover:border-primary/50'
-                      }`}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <button 
-                disabled={!selectedDate || !selectedTime}
-                /* Fixed: changed setStep to setBookingStep */
-                onClick={() => setBookingStep(2)}
-                className="w-full py-6 bg-primary text-background-dark rounded-2xl text-[12px] font-black uppercase tracking-widest shadow-2xl disabled:opacity-50 transition-all hover:scale-[1.02]"
-              >
-                Proceed to Details
-              </button>
-            </div>
-          )}
-
-          {bookingStep === 2 && (
-            <form onSubmit={handleBookingSubmit} className="space-y-6 animate-in slide-in-from-right duration-300">
-              <div className="grid grid-cols-1 gap-5">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Full Name</label>
-                  <input required type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-primary outline-none transition-all" placeholder="Enter your name" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Corporate Email</label>
-                  <input required type="email" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-primary outline-none transition-all" placeholder="name@company.com" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Phone Number</label>
-                  <input required type="tel" className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-primary outline-none transition-all" placeholder="+20 123 456 7890" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Project Summary / Inquiry</label>
-                  <textarea required rows={4} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm font-bold focus:border-primary outline-none transition-all" placeholder="Tell us briefly about your automation goals..." />
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <button type="button" onClick={() => setBookingStep(1)} className="px-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-white transition-all">Back</button>
-                <button type="submit" className="flex-1 py-5 bg-primary text-background-dark rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-2xl hover:scale-[1.02] transition-all">Confirm Booking</button>
-              </div>
-            </form>
-          )}
-
-          {bookingStep === 3 && (
-            <div className="text-center space-y-8 animate-in zoom-in-95 duration-500 py-4">
-              <div className="size-20 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                <span className="material-symbols-outlined text-4xl font-black">check_circle</span>
-              </div>
-              <div className="space-y-2">
-                <h3 className="text-2xl font-black dark:text-white uppercase tracking-tighter">Session Scheduled</h3>
-                <p className="text-sm text-slate-500 font-medium leading-relaxed">
-                  Your strategy session for <span className="text-primary font-bold">Oct {selectedDate} @ {selectedTime}</span> has been locked in. 
-                  Check your inbox for the calendar invite.
-                </p>
-              </div>
-              <button 
-                onClick={resetBooking}
-                className="w-full py-5 bg-white/5 border border-white/10 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-background-dark transition-all"
-              >
-                Close Portal
-              </button>
-            </div>
-          )}
+          <div className="text-center space-y-4 mb-6">
+            <p className="text-slate-400 font-medium">
+              Book a free 30-minute discovery call with our automation experts.
+            </p>
+          </div>
+          
+          {/* Cal.com Embed */}
+          <div className="rounded-2xl overflow-hidden bg-white/5 border border-white/10" style={{ minHeight: '500px' }}>
+            <iframe
+              src={`https://cal.com/${calLink}?embed=true&theme=dark`}
+              width="100%"
+              height="500"
+              frameBorder="0"
+              style={{ background: 'transparent' }}
+              title="Book a meeting"
+            />
+          </div>
+          
+          <div className="text-center pt-4 border-t border-white/10">
+            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+              Prefer to call directly?
+            </p>
+            <a href={`tel:${contactPhone}`} className="text-xl font-black text-primary hover:text-white transition-colors">
+              {contactPhone}
+            </a>
+          </div>
         </div>
       </Modal>
+
+      {/* Coming Soon Modal */}
+      <ComingSoonModal 
+        isOpen={isComingSoonModalOpen} 
+        onClose={() => setIsComingSoonModalOpen(false)} 
+      />
     </div>
   );
 };

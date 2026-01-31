@@ -379,7 +379,7 @@ const LandingPage: React.FC = () => {
         <nav className="h-14 sm:h-20 md:h-32 flex items-center justify-between px-3 sm:px-4 md:px-12 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-2xl md:rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
           {/* Logo */}
           <div className="flex items-center shrink-0">
-             <Logo size={isMobile ? 60 : 200} showText={false} className="!items-start" />
+             <Logo size={isMobile ? 90 : 200} showText={false} className="!items-start" />
           </div>
           
           {/* Nav Links - All screen sizes */}

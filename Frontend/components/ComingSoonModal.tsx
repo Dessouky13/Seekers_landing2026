@@ -68,51 +68,51 @@ const ComingSoonModal: React.FC<ComingSoonModalProps> = ({ isOpen, onClose }) =>
         {!isSubmitted ? (
           <>
             {/* Coming Soon Message */}
-            <div className="text-center space-y-4">
-              <div className="size-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto">
-                <span className="material-symbols-outlined text-4xl font-black">rocket_launch</span>
+            <div className="text-center space-y-3 sm:space-y-4">
+              <div className="size-14 sm:size-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto">
+                <span className="material-symbols-outlined text-2xl sm:text-4xl font-black">rocket_launch</span>
               </div>
               <div>
-                <h3 className="text-2xl font-black tracking-tight mb-2">We're Launching Soon!</h3>
-                <p className="text-slate-400 font-medium leading-relaxed">
+                <h3 className="text-xl sm:text-2xl font-black tracking-tight mb-2">We're Launching Soon!</h3>
+                <p className="text-sm sm:text-base text-slate-400 font-medium leading-relaxed">
                   Our platform is in final development. Join the waitlist to get early access and exclusive launch benefits.
                 </p>
               </div>
             </div>
 
             {/* Contact Info */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">
+            <div className="bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+              <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">
                 For Immediate Inquiries
               </p>
-              <div className="flex items-center justify-center gap-3">
-                <span className="material-symbols-outlined text-primary text-2xl">call</span>
-                <a href="tel:01211100767" className="text-xl font-black text-white hover:text-primary transition-colors">
+              <div className="flex items-center justify-center gap-2 sm:gap-3">
+                <span className="material-symbols-outlined text-primary text-xl sm:text-2xl">call</span>
+                <a href="tel:01211100767" className="text-base sm:text-xl font-black text-white hover:text-primary transition-colors">
                   01211100767
                 </a>
               </div>
-              <div className="flex items-center justify-center gap-3">
-                <span className="material-symbols-outlined text-primary text-2xl">mail</span>
-                <a href="mailto:team@seekersai.org" className="text-lg font-bold text-white hover:text-primary transition-colors">
+              <div className="flex items-center justify-center gap-2 sm:gap-3">
+                <span className="material-symbols-outlined text-primary text-xl sm:text-2xl">mail</span>
+                <a href="mailto:team@seekersai.org" className="text-sm sm:text-lg font-bold text-white hover:text-primary transition-colors break-all">
                   team@seekersai.org
                 </a>
               </div>
             </div>
 
             {/* Waitlist Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+              <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">
                 Join the Waitlist
               </p>
               
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your Name"
                   required
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-sm font-bold focus:border-primary outline-none transition-all placeholder:text-slate-600"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg sm:rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-sm font-bold focus:border-primary outline-none transition-all placeholder:text-slate-600"
                 />
                 <input
                   type="email"
@@ -120,14 +120,14 @@ const ComingSoonModal: React.FC<ComingSoonModalProps> = ({ isOpen, onClose }) =>
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your Email"
                   required
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-sm font-bold focus:border-primary outline-none transition-all placeholder:text-slate-600"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg sm:rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-sm font-bold focus:border-primary outline-none transition-all placeholder:text-slate-600"
                 />
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Phone Number (Optional)"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-sm font-bold focus:border-primary outline-none transition-all placeholder:text-slate-600"
+                  className="w-full bg-white/5 border border-white/10 rounded-lg sm:rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-sm font-bold focus:border-primary outline-none transition-all placeholder:text-slate-600"
                 />
               </div>
 
@@ -138,11 +138,11 @@ const ComingSoonModal: React.FC<ComingSoonModalProps> = ({ isOpen, onClose }) =>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-5 bg-primary text-background-dark rounded-2xl text-[12px] font-black uppercase tracking-widest shadow-2xl disabled:opacity-50 transition-all hover:scale-[1.02] flex items-center justify-center gap-3"
+                className="w-full py-4 sm:py-5 bg-primary text-background-dark rounded-xl sm:rounded-2xl text-[11px] sm:text-[12px] font-black uppercase tracking-widest shadow-2xl disabled:opacity-50 transition-all hover:scale-[1.02] flex items-center justify-center gap-2 sm:gap-3"
               >
                 {isSubmitting ? (
                   <>
-                    <div className="size-5 border-2 border-background-dark border-t-transparent rounded-full animate-spin" />
+                    <div className="size-4 sm:size-5 border-2 border-background-dark border-t-transparent rounded-full animate-spin" />
                     Joining...
                   </>
                 ) : (

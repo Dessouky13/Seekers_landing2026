@@ -303,10 +303,18 @@ const LandingPage: React.FC = () => {
   const [isComingSoonModalOpen, setIsComingSoonModalOpen] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   
   // Cal.com link from environment or default
   const calLink = import.meta.env.VITE_CAL_LINK || 'seeker/30min';
   const contactPhone = import.meta.env.VITE_CONTACT_PHONE || '01211100767';
+
+  // Handle window resize for mobile detection
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Scroll direction detection for hide/show nav
   useEffect(() => {
@@ -360,11 +368,11 @@ const LandingPage: React.FC = () => {
       </div>
 
       {/* Floating Header Navigation with scroll-hide */}
-      <div className={`fixed top-4 md:top-10 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] md:w-[calc(100%-3rem)] max-w-7xl z-50 px-2 md:px-4 transition-transform duration-500 ${isNavVisible ? 'translate-y-0' : '-translate-y-[200%]'}`}>
-        <nav className="h-20 md:h-32 flex items-center justify-between px-4 md:px-12 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-2xl md:rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
+      <div className={`fixed top-2 sm:top-4 md:top-10 left-1/2 -translate-x-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-1.5rem)] md:w-[calc(100%-3rem)] max-w-7xl z-50 px-1 sm:px-2 md:px-4 transition-transform duration-500 ${isNavVisible ? 'translate-y-0' : '-translate-y-[200%]'}`}>
+        <nav className="h-14 sm:h-20 md:h-32 flex items-center justify-between px-3 sm:px-4 md:px-12 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-xl sm:rounded-2xl md:rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
           <div className="flex items-center">
-             {/* Logo Scaling - Enlarged: 120px mobile / 240px desktop */}
-             <Logo size={window.innerWidth < 768 ? 120 : 240} showText={false} className="!items-start" />
+             {/* Logo Scaling - Responsive: 80px mobile / 100px tablet / 200px desktop */}
+             <Logo size={isMobile ? 80 : 200} showText={false} className="!items-start" />
           </div>
           <div className="hidden lg:flex items-center gap-16">
             {['Solutions', 'Impact', 'Process', 'Trust'].map((item) => (
@@ -378,34 +386,35 @@ const LandingPage: React.FC = () => {
               </a>
             ))}
           </div>
-          <div className="flex items-center gap-4 md:gap-8">
-            <button onClick={() => setIsComingSoonModalOpen(true)} className="hidden xs:block text-[11px] md:text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.4em] px-4 md:px-8 py-3 md:py-5 rounded-xl md:rounded-2xl hover:bg-white/5">Portal</button>
-            <button onClick={() => setIsComingSoonModalOpen(true)} className="px-5 md:px-12 py-3 md:py-6 bg-primary text-background-dark rounded-xl md:rounded-[2rem] text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.2em] flex items-center gap-2 md:gap-4">
-              Get Started
-              <span className="material-symbols-outlined text-sm md:text-xl font-black">arrow_forward</span>
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
+            <button onClick={() => setIsComingSoonModalOpen(true)} className="hidden sm:block text-[10px] sm:text-[11px] md:text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.2em] sm:tracking-[0.4em] px-3 sm:px-4 md:px-8 py-2 sm:py-3 md:py-5 rounded-lg sm:rounded-xl md:rounded-2xl hover:bg-white/5">Portal</button>
+            <button onClick={() => setIsComingSoonModalOpen(true)} className="px-3 sm:px-5 md:px-12 py-2.5 sm:py-3 md:py-6 bg-primary text-background-dark rounded-lg sm:rounded-xl md:rounded-[2rem] text-[9px] sm:text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.15em] sm:tracking-[0.2em] flex items-center gap-1.5 sm:gap-2 md:gap-4">
+              <span className="hidden sm:inline">Get Started</span>
+              <span className="sm:hidden">Start</span>
+              <span className="material-symbols-outlined text-xs sm:text-sm md:text-xl font-black">arrow_forward</span>
             </button>
           </div>
         </nav>
       </div>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 pt-48 md:pt-72 pb-24 md:pb-48 text-center relative z-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-36 sm:pt-48 md:pt-72 pb-16 sm:pb-24 md:pb-48 text-center relative z-10">
         <div className="flex flex-col items-center">
-          <div className="space-y-6 md:space-y-10 max-w-6xl animate-in slide-in-from-bottom-12 duration-1000">
-            <h1 className="text-4xl md:text-8xl lg:text-[8.5rem] font-extrabold tracking-tighter leading-[1.1] md:leading-[1.2] mb-4 md:mb-8 overflow-visible">
+          <div className="space-y-4 sm:space-y-6 md:space-y-10 max-w-6xl animate-in slide-in-from-bottom-12 duration-1000">
+            <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-[8rem] font-extrabold tracking-tighter leading-[1.15] sm:leading-[1.1] md:leading-[1.2] mb-2 sm:mb-4 md:mb-8 overflow-visible">
               Transform Your Business <br />
-              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400 italic py-2 md:py-6 px-4">with Intelligent AI</span>
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400 italic py-1 sm:py-2 md:py-6 px-2 sm:px-4">with Intelligent AI</span>
             </h1>
-            <p className="text-[10px] md:text-xl text-slate-400 font-bold uppercase tracking-[0.4em] md:tracking-[0.6em] opacity-80 mb-8 md:mb-16">
+            <p className="text-[9px] sm:text-[10px] md:text-lg lg:text-xl text-slate-400 font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] md:tracking-[0.6em] opacity-80 mb-4 sm:mb-8 md:mb-16">
               // NEXT-GEN AUTOMATION FOR THE MENA REGION
             </p>
-            <div className="pt-8 md:pt-12 flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-12">
-              <button onClick={scrollToBooking} className="w-full sm:w-auto px-10 md:px-20 py-5 md:py-8 bg-primary text-background-dark rounded-2xl md:rounded-[2.5rem] text-sm md:text-lg font-black shadow-[0_30px_60px_rgba(161,158,255,0.5)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.3em]">
+            <div className="pt-6 sm:pt-8 md:pt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-12">
+              <button onClick={scrollToBooking} className="w-full sm:w-auto px-8 sm:px-10 md:px-20 py-4 sm:py-5 md:py-8 bg-primary text-background-dark rounded-xl sm:rounded-2xl md:rounded-[2.5rem] text-xs sm:text-sm md:text-lg font-black shadow-[0_30px_60px_rgba(161,158,255,0.5)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.2em] sm:tracking-[0.3em]">
                 Book a Discovery Call
               </button>
-              <div className="flex flex-col items-center gap-2 md:gap-4 opacity-40">
-                <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em]">Cairo Headquarters</span>
-                <span className="text-[10px] md:text-[12px] font-black uppercase tracking-[0.5em]">Global Infrastructure</span>
+              <div className="flex flex-col items-center gap-1 sm:gap-2 md:gap-4 opacity-40">
+                <span className="text-[9px] sm:text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em]">Cairo Headquarters</span>
+                <span className="text-[9px] sm:text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em]">Global Infrastructure</span>
               </div>
             </div>
           </div>
@@ -413,10 +422,10 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Solutions Portfolio */}
-      <section id="solutions" className="max-w-7xl mx-auto px-6 py-24 md:py-32 relative z-10">
-        <div className="mb-12 md:mb-20">
-          <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-4">OUR SOLUTIONS PORTFOLIO</p>
-          <h2 className="text-3xl md:text-6xl font-extrabold tracking-tight">Comprehensive AI Solutions for <br className="hidden md:block" /> Modern Business</h2>
+      <section id="solutions" className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 relative z-10">
+        <div className="mb-8 sm:mb-12 md:mb-20">
+          <p className="text-primary text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-3 sm:mb-4">OUR SOLUTIONS PORTFOLIO</p>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">Comprehensive AI Solutions for <br className="hidden md:block" /> Modern Business</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {[
@@ -443,35 +452,35 @@ const LandingPage: React.FC = () => {
 
       
       {/* Impact Section */}
-      <section id="impact" className="max-w-7xl mx-auto px-6 py-20 md:py-32 relative z-10 bg-white/5 rounded-[2rem] md:rounded-[4rem] border border-white/10 my-10 md:my-20">
-        <div className="text-center mb-16 md:mb-24">
-          <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-4 md:mb-6">PROVEN ROI & IMPACT</p>
-          <h2 className="text-3xl md:text-6xl font-extrabold tracking-tight">Results That Scale Your Business</h2>
+      <section id="impact" className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 md:py-32 relative z-10 bg-white/5 rounded-2xl sm:rounded-[2rem] md:rounded-[4rem] border border-white/10 my-6 sm:my-10 md:my-20">
+        <div className="text-center mb-10 sm:mb-16 md:mb-24">
+          <p className="text-primary text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-3 sm:mb-4 md:mb-6">PROVEN ROI & IMPACT</p>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">Results That Scale Your Business</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8 px-2 sm:px-4 md:px-10">
           {[
             { val: '60%', label: 'Cost Reduction', desc: 'Lower operational expenses via workflow efficiency.', icon: 'payments' },
             { val: '70%', label: 'Faster Response', desc: 'Instant replies improving customer satisfaction.', icon: 'bolt' },
             { val: '5x', label: 'ROI in 6 Months', desc: 'Measurable return realized within two quarters.', icon: 'savings' },
             { val: '100%', label: 'Automation', desc: 'Eliminate manual repetitive enterprise tasks.', icon: 'autorenew' },
           ].map((item, idx) => (
-            <div key={idx} className="presentation-card p-8 md:p-12 rounded-2xl md:rounded-[3rem] text-center flex flex-col items-center">
-              <div className="size-12 md:size-16 bg-primary/10 text-primary rounded-xl md:rounded-2xl flex items-center justify-center mb-6 md:mb-8 shadow-xl shadow-primary/5">
-                <span className="material-symbols-outlined text-2xl md:text-3xl font-black">{item.icon}</span>
+            <div key={idx} className="presentation-card p-4 sm:p-8 md:p-12 rounded-xl sm:rounded-2xl md:rounded-[3rem] text-center flex flex-col items-center">
+              <div className="size-10 sm:size-12 md:size-16 bg-primary/10 text-primary rounded-lg sm:rounded-xl md:rounded-2xl flex items-center justify-center mb-3 sm:mb-6 md:mb-8 shadow-xl shadow-primary/5">
+                <span className="material-symbols-outlined text-lg sm:text-2xl md:text-3xl font-black">{item.icon}</span>
               </div>
-              <p className="text-4xl md:text-6xl font-extrabold text-primary mb-2 md:mb-4 tracking-tighter">{item.val}</p>
-              <h4 className="text-[10px] md:text-sm font-black uppercase tracking-[0.2em] mb-4 md:mb-6">{item.label}</h4>
-              <p className="text-[11px] md:text-sm text-slate-400 font-medium leading-relaxed">{item.desc}</p>
+              <p className="text-2xl sm:text-4xl md:text-6xl font-extrabold text-primary mb-1 sm:mb-2 md:mb-4 tracking-tighter">{item.val}</p>
+              <h4 className="text-[8px] sm:text-[10px] md:text-sm font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] mb-2 sm:mb-4 md:mb-6">{item.label}</h4>
+              <p className="text-[9px] sm:text-[11px] md:text-sm text-slate-400 font-medium leading-relaxed hidden sm:block">{item.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Process Section - Animated Timeline */}
-      <section id="process" className="max-w-7xl mx-auto px-6 py-20 md:py-32 relative z-10">
-        <div className="text-center mb-16 md:mb-24">
-          <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-4">THE PROCESS</p>
-          <h2 className="text-3xl md:text-6xl font-extrabold tracking-tight leading-tight">From Strategy to Execution</h2>
+      <section id="process" className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 md:py-32 relative z-10">
+        <div className="text-center mb-10 sm:mb-16 md:mb-24">
+          <p className="text-primary text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-3 sm:mb-4">THE PROCESS</p>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">From Strategy to Execution</h2>
         </div>
         
         {/* Animated Timeline */}
@@ -479,45 +488,45 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Footer Contact */}
-      <footer id="trust" className="max-w-7xl mx-auto px-6 py-24 md:py-32 relative z-10 border-t border-white/10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20">
-          <div className="lg:col-span-7 space-y-10 md:space-y-16">
+      <footer id="trust" className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-24 md:py-32 relative z-10 border-t border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 md:gap-20">
+          <div className="lg:col-span-7 space-y-6 sm:space-y-10 md:space-y-16">
             <div>
-              <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-4 md:mb-6">LET'S START YOUR TRANSFORMATION</p>
-              <h2 className="text-4xl md:text-8xl font-extrabold tracking-tight leading-tight">Ready to Transform Your Business?</h2>
+              <p className="text-primary text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-3 sm:mb-4 md:mb-6">LET'S START YOUR TRANSFORMATION</p>
+              <h2 className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-extrabold tracking-tight leading-tight">Ready to Transform Your Business?</h2>
             </div>
-            <p className="text-lg md:text-2xl text-slate-400 font-medium max-w-2xl leading-relaxed">
+            <p className="text-base sm:text-lg md:text-2xl text-slate-400 font-medium max-w-2xl leading-relaxed">
               Join the leading companies in the MENA region using Seekers AI to automate, scale, and succeed.
             </p>
-            <div className="space-y-8 md:space-y-12 pt-4 md:pt-8">
-              <div className="flex gap-4 md:gap-8 items-start">
-                <div className="size-12 md:size-20 rounded-xl md:rounded-3xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 shadow-2xl"><span className="material-symbols-outlined text-primary text-2xl md:text-4xl">mail</span></div>
+            <div className="space-y-4 sm:space-y-8 md:space-y-12 pt-2 sm:pt-4 md:pt-8">
+              <div className="flex gap-3 sm:gap-4 md:gap-8 items-start">
+                <div className="size-10 sm:size-12 md:size-20 rounded-lg sm:rounded-xl md:rounded-3xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 shadow-2xl"><span className="material-symbols-outlined text-primary text-xl sm:text-2xl md:text-4xl">mail</span></div>
                 <div>
-                  <p className="text-[10px] md:text-[12px] font-black text-slate-500 uppercase tracking-widest mb-1 md:mb-2">Corporate Correspondence</p>
-                  <p className="text-xl md:text-3xl font-black text-white">Team@seekersai.org</p>
+                  <p className="text-[9px] sm:text-[10px] md:text-[12px] font-black text-slate-500 uppercase tracking-wider sm:tracking-widest mb-1 md:mb-2">Corporate Correspondence</p>
+                  <p className="text-base sm:text-xl md:text-3xl font-black text-white break-all sm:break-normal">Team@seekersai.org</p>
                 </div>
               </div>
-              <div className="flex gap-4 md:gap-8 items-start">
-                <div className="size-12 md:size-20 rounded-xl md:rounded-3xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 shadow-2xl"><span className="material-symbols-outlined text-primary text-2xl md:text-4xl">phone</span></div>
+              <div className="flex gap-3 sm:gap-4 md:gap-8 items-start">
+                <div className="size-10 sm:size-12 md:size-20 rounded-lg sm:rounded-xl md:rounded-3xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 shadow-2xl"><span className="material-symbols-outlined text-primary text-xl sm:text-2xl md:text-4xl">phone</span></div>
                 <div>
-                  <p className="text-[10px] md:text-[12px] font-black text-slate-500 uppercase tracking-widest mb-1 md:mb-2">Priority Sales Channel</p>
-                  <p className="text-xl md:text-3xl font-black text-white whitespace-nowrap">01044332566 | 01010748045</p>
+                  <p className="text-[9px] sm:text-[10px] md:text-[12px] font-black text-slate-500 uppercase tracking-wider sm:tracking-widest mb-1 md:mb-2">Priority Sales Channel</p>
+                  <p className="text-sm sm:text-xl md:text-3xl font-black text-white">01044332566 | 01010748045</p>
                 </div>
               </div>
             </div>
           </div>
           <div className="lg:col-span-5">
-            <div className="presentation-card p-8 md:p-14 rounded-3xl md:rounded-[4rem] text-center flex flex-col items-center">
-              <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-[3rem] mb-8 md:mb-12 shadow-[0_30px_100px_rgba(255,255,255,0.1)]">
-                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://cal.com/${calLink}`} alt="QR Code - Book a Call" className="size-48 md:size-64" />
+            <div className="presentation-card p-6 sm:p-8 md:p-14 rounded-2xl sm:rounded-3xl md:rounded-[4rem] text-center flex flex-col items-center">
+              <div className="bg-white p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl md:rounded-[3rem] mb-4 sm:mb-8 md:mb-12 shadow-[0_30px_100px_rgba(255,255,255,0.1)]">
+                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://cal.com/${calLink}`} alt="QR Code - Book a Call" className="size-32 sm:size-48 md:size-64" />
               </div>
-              <h3 className="text-2xl md:text-4xl font-black mb-4 md:mb-6 tracking-tight">Schedule Consultation</h3>
-              <p className="text-base md:text-xl text-slate-400 font-medium mb-8 md:mb-12 leading-relaxed">Scan to book your free strategy session with our experts.</p>
+              <h3 className="text-xl sm:text-2xl md:text-4xl font-black mb-2 sm:mb-4 md:mb-6 tracking-tight">Schedule Consultation</h3>
+              <p className="text-sm sm:text-base md:text-xl text-slate-400 font-medium mb-4 sm:mb-8 md:mb-12 leading-relaxed">Scan to book your free strategy session with our experts.</p>
               <button 
                 onClick={() => setIsBookingModalOpen(true)}
-                className="w-full py-5 md:py-8 bg-primary text-background-dark rounded-2xl md:rounded-[2rem] font-black text-sm md:text-xl uppercase tracking-widest shadow-3xl flex items-center justify-center gap-3 md:gap-5 hover:scale-105 active:scale-95 transition-all"
+                className="w-full py-4 sm:py-5 md:py-8 bg-primary text-background-dark rounded-xl sm:rounded-2xl md:rounded-[2rem] font-black text-xs sm:text-sm md:text-xl uppercase tracking-wider sm:tracking-widest shadow-3xl flex items-center justify-center gap-2 sm:gap-3 md:gap-5 hover:scale-105 active:scale-95 transition-all"
               >
-                <span className="material-symbols-outlined text-xl md:text-3xl font-black">event_available</span>
+                <span className="material-symbols-outlined text-lg sm:text-xl md:text-3xl font-black">event_available</span>
                 Book My Session
               </button>
             </div>
@@ -531,30 +540,30 @@ const LandingPage: React.FC = () => {
         onClose={resetBooking} 
         title="Schedule Strategy Session"
       >
-        <div className="space-y-6">
-          <div className="text-center space-y-4 mb-6">
-            <p className="text-slate-400 font-medium">
+        <div className="space-y-4 sm:space-y-6">
+          <div className="text-center space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+            <p className="text-sm sm:text-base text-slate-400 font-medium">
               Book a free 30-minute discovery call with our automation experts.
             </p>
           </div>
           
           {/* Cal.com Embed */}
-          <div className="rounded-2xl overflow-hidden bg-white/5 border border-white/10" style={{ minHeight: '500px' }}>
+          <div className="rounded-xl sm:rounded-2xl overflow-hidden bg-white/5 border border-white/10" style={{ minHeight: '400px' }}>
             <iframe
               src={`https://cal.com/${calLink}?embed=true&theme=dark`}
               width="100%"
-              height="500"
+              height="400"
               frameBorder="0"
               style={{ background: 'transparent' }}
               title="Book a meeting"
             />
           </div>
           
-          <div className="text-center pt-4 border-t border-white/10">
-            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+          <div className="text-center pt-3 sm:pt-4 border-t border-white/10">
+            <p className="text-[9px] sm:text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 sm:mb-2">
               Prefer to call directly?
             </p>
-            <a href={`tel:${contactPhone}`} className="text-xl font-black text-primary hover:text-white transition-colors">
+            <a href={`tel:${contactPhone}`} className="text-lg sm:text-xl font-black text-primary hover:text-white transition-colors">
               {contactPhone}
             </a>
           </div>

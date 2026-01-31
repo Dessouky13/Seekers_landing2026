@@ -216,63 +216,70 @@ const ProcessTimeline: React.FC = () => {
       </div>
 
       {/* Mobile Timeline (Vertical) */}
-      <div className="md:hidden relative pl-8">
+      <div className="md:hidden relative pl-16 pr-4">
         {/* Vertical line */}
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-white/10">
+        <div className="absolute left-6 top-2 bottom-2 w-1 bg-white/10 rounded-full">
           <div 
-            className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary to-indigo-500 transition-all duration-1000"
-            style={{ height: `${(activeStep / 3) * 100}%` }}
+            className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary via-indigo-500 to-primary/50 rounded-full transition-all duration-1000"
+            style={{ height: `${((activeStep + 1) / 4) * 100}%` }}
           />
         </div>
 
         {/* Steps */}
-        <div className="space-y-12">
+        <div className="space-y-8">
           {processSteps.map((item, idx) => (
             <div 
               key={idx} 
-              className={`relative flex items-start gap-6 transition-all duration-500 ${
-                idx <= activeStep ? 'opacity-100' : 'opacity-40'
+              className={`relative transition-all duration-500 ${
+                idx <= activeStep ? 'opacity-100' : 'opacity-50'
               }`}
             >
               {/* Node */}
               <div 
-                className={`absolute -left-4 size-8 rounded-full flex items-center justify-center transition-all duration-500 ${
+                className={`absolute -left-10 top-1 size-10 rounded-xl flex items-center justify-center transition-all duration-500 border-2 ${
                   idx <= activeStep 
-                    ? 'bg-primary shadow-[0_0_20px_rgba(161,158,255,0.5)]' 
-                    : 'bg-white/10 border border-white/20'
-                }`}
+                    ? 'bg-primary/20 border-primary shadow-[0_0_20px_rgba(161,158,255,0.4)]' 
+                    : 'bg-white/5 border-white/20'
+                } ${idx === activeStep ? 'scale-110' : ''}`}
               >
                 {idx === activeStep && (
-                  <>
-                    {/* Mobile AI Avatar indicator */}
-                    <span className="material-symbols-outlined text-sm text-background-dark font-black">
-                      smart_toy
-                    </span>
-                    <div className="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-50" />
-                  </>
+                  <div className="absolute inset-0 rounded-xl border border-primary animate-ping opacity-40" />
                 )}
-                {idx !== activeStep && (
-                  <span className={`material-symbols-outlined text-sm font-black ${
-                    idx < activeStep ? 'text-background-dark' : 'text-slate-600'
-                  }`}>
-                    {idx < activeStep ? 'check' : item.icon}
-                  </span>
-                )}
+                <svg className={`w-5 h-5 ${idx <= activeStep ? 'text-primary' : 'text-slate-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  {idx < activeStep ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  ) : item.icon === 'handshake' ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+                  ) : item.icon === 'settings' ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  ) : item.icon === 'rocket_launch' ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                  )}
+                </svg>
               </div>
 
-              {/* Content */}
-              <div className={`transition-all duration-500 ${idx === activeStep ? 'transform scale-105 origin-left' : ''}`}>
-                <span className={`text-xs font-black uppercase tracking-widest ${
-                  idx <= activeStep ? 'text-primary' : 'text-slate-600'
-                }`}>
-                  Step {item.step}
-                </span>
-                <h4 className={`text-xl font-black mt-1 mb-2 tracking-tight ${
+              {/* Content Card */}
+              <div className={`bg-white/5 border rounded-2xl p-4 transition-all duration-500 ${
+                idx === activeStep ? 'border-primary/30 bg-primary/5' : 'border-white/10'
+              }`}>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-lg ${
+                    idx <= activeStep ? 'bg-primary/20 text-primary' : 'bg-white/10 text-slate-500'
+                  }`}>
+                    Step {item.step}
+                  </span>
+                  {idx === activeStep && (
+                    <span className="text-[9px] font-bold text-primary animate-pulse">● Active</span>
+                  )}
+                </div>
+                <h4 className={`text-lg font-black tracking-tight mb-1 ${
                   idx <= activeStep ? 'text-white' : 'text-slate-500'
                 }`}>
                   {item.title}
                 </h4>
-                <p className={`text-base font-medium leading-relaxed ${
+                <p className={`text-sm font-medium leading-relaxed ${
                   idx <= activeStep ? 'text-slate-400' : 'text-slate-600'
                 }`}>
                   {item.desc}
@@ -284,13 +291,13 @@ const ProcessTimeline: React.FC = () => {
       </div>
 
       {/* Timeline legend */}
-      <div className="mt-12 flex items-center justify-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-500">
+      <div className="mt-8 md:mt-12 flex items-center justify-center gap-4 sm:gap-6 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-500">
         <div className="flex items-center gap-2">
-          <div className="size-3 rounded-full bg-primary animate-pulse" />
-          <span>Current Step</span>
+          <div className="size-2.5 sm:size-3 rounded-full bg-primary animate-pulse" />
+          <span>Current</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="size-3 rounded-full bg-white/30" />
+          <div className="size-2.5 sm:size-3 rounded-full bg-white/30" />
           <span>Upcoming</span>
         </div>
       </div>
@@ -369,11 +376,13 @@ const LandingPage: React.FC = () => {
 
       {/* Floating Header Navigation with scroll-hide */}
       <div className={`fixed top-2 sm:top-4 md:top-10 left-1/2 -translate-x-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-1.5rem)] md:w-[calc(100%-3rem)] max-w-7xl z-50 px-1 sm:px-2 md:px-4 transition-transform duration-500 ${isNavVisible ? 'translate-y-0' : '-translate-y-[200%]'}`}>
-        <nav className="h-14 sm:h-20 md:h-32 flex items-center justify-between px-3 sm:px-4 md:px-12 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-xl sm:rounded-2xl md:rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
-          <div className="flex items-center">
-             {/* Logo Scaling - Responsive: 80px mobile / 100px tablet / 200px desktop */}
-             <Logo size={isMobile ? 80 : 200} showText={false} className="!items-start" />
+        <nav className="h-16 sm:h-20 md:h-32 flex items-center justify-between px-4 sm:px-4 md:px-12 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-2xl md:rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
+          {/* Logo */}
+          <div className="flex items-center shrink-0">
+             <Logo size={isMobile ? 70 : 200} showText={false} className="!items-start" />
           </div>
+          
+          {/* Desktop Nav Links */}
           <div className="hidden lg:flex items-center gap-16">
             {['Solutions', 'Impact', 'Process', 'Trust'].map((item) => (
               <a 
@@ -386,12 +395,22 @@ const LandingPage: React.FC = () => {
               </a>
             ))}
           </div>
-          <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
+          
+          {/* Mobile: Company name + CTA */}
+          <div className="flex items-center gap-3 sm:gap-4 md:gap-8">
+            {/* Mobile company name */}
+            <span className="lg:hidden text-[10px] sm:text-xs font-black text-white uppercase tracking-[0.15em]">Seekers AI</span>
+            
+            {/* Desktop Portal button */}
             <button onClick={() => setIsComingSoonModalOpen(true)} className="hidden sm:block text-[10px] sm:text-[11px] md:text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.2em] sm:tracking-[0.4em] px-3 sm:px-4 md:px-8 py-2 sm:py-3 md:py-5 rounded-lg sm:rounded-xl md:rounded-2xl hover:bg-white/5">Portal</button>
-            <button onClick={() => setIsComingSoonModalOpen(true)} className="px-3 sm:px-5 md:px-12 py-2.5 sm:py-3 md:py-6 bg-primary text-background-dark rounded-lg sm:rounded-xl md:rounded-[2rem] text-[9px] sm:text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.15em] sm:tracking-[0.2em] flex items-center gap-1.5 sm:gap-2 md:gap-4">
+            
+            {/* CTA Button */}
+            <button onClick={() => setIsComingSoonModalOpen(true)} className="px-4 sm:px-5 md:px-12 py-2.5 sm:py-3 md:py-6 bg-primary text-background-dark rounded-xl sm:rounded-xl md:rounded-[2rem] text-[9px] sm:text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.1em] sm:tracking-[0.2em] flex items-center gap-1.5 sm:gap-2 md:gap-4 whitespace-nowrap">
               <span className="hidden sm:inline">Get Started</span>
               <span className="sm:hidden">Start</span>
-              <span className="material-symbols-outlined text-xs sm:text-sm md:text-xl font-black">arrow_forward</span>
+              <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
             </button>
           </div>
         </nav>

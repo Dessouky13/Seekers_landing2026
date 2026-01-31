@@ -376,39 +376,36 @@ const LandingPage: React.FC = () => {
 
       {/* Floating Header Navigation with scroll-hide */}
       <div className={`fixed top-2 sm:top-4 md:top-10 left-1/2 -translate-x-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-1.5rem)] md:w-[calc(100%-3rem)] max-w-7xl z-50 px-1 sm:px-2 md:px-4 transition-transform duration-500 ${isNavVisible ? 'translate-y-0' : '-translate-y-[200%]'}`}>
-        <nav className="h-16 sm:h-20 md:h-32 flex items-center justify-between px-4 sm:px-4 md:px-12 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-2xl md:rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
+        <nav className="h-14 sm:h-20 md:h-32 flex items-center justify-between px-3 sm:px-4 md:px-12 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-2xl md:rounded-[3.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)]">
           {/* Logo */}
           <div className="flex items-center shrink-0">
-             <Logo size={isMobile ? 70 : 200} showText={false} className="!items-start" />
+             <Logo size={isMobile ? 60 : 200} showText={false} className="!items-start" />
           </div>
           
-          {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-16">
+          {/* Nav Links - All screen sizes */}
+          <div className="flex items-center gap-3 sm:gap-6 lg:gap-16">
             {['Solutions', 'Impact', 'Process', 'Trust'].map((item) => (
               <a 
                 key={item} 
                 href={`#${item.toLowerCase()}`} 
                 onClick={scrollToSection(item.toLowerCase())}
-                className="text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.5em] hover:scale-110 active:scale-95"
+                className="text-[8px] sm:text-[10px] lg:text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.1em] sm:tracking-[0.3em] lg:tracking-[0.5em] hover:scale-110 active:scale-95"
               >
                 {item}
               </a>
             ))}
           </div>
           
-          {/* Mobile: Company name + CTA */}
-          <div className="flex items-center gap-3 sm:gap-4 md:gap-8">
-            {/* Mobile company name */}
-            <span className="lg:hidden text-[10px] sm:text-xs font-black text-white uppercase tracking-[0.15em]">Seekers AI</span>
-            
+          {/* CTA Buttons */}
+          <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
             {/* Desktop Portal button */}
             <button onClick={() => setIsComingSoonModalOpen(true)} className="hidden sm:block text-[10px] sm:text-[11px] md:text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.2em] sm:tracking-[0.4em] px-3 sm:px-4 md:px-8 py-2 sm:py-3 md:py-5 rounded-lg sm:rounded-xl md:rounded-2xl hover:bg-white/5">Portal</button>
             
             {/* CTA Button */}
-            <button onClick={() => setIsComingSoonModalOpen(true)} className="px-4 sm:px-5 md:px-12 py-2.5 sm:py-3 md:py-6 bg-primary text-background-dark rounded-xl sm:rounded-xl md:rounded-[2rem] text-[9px] sm:text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.1em] sm:tracking-[0.2em] flex items-center gap-1.5 sm:gap-2 md:gap-4 whitespace-nowrap">
+            <button onClick={() => setIsComingSoonModalOpen(true)} className="px-3 sm:px-5 md:px-12 py-2 sm:py-3 md:py-6 bg-primary text-background-dark rounded-lg sm:rounded-xl md:rounded-[2rem] text-[8px] sm:text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.1em] sm:tracking-[0.2em] flex items-center gap-1 sm:gap-2 md:gap-4 whitespace-nowrap">
               <span className="hidden sm:inline">Get Started</span>
               <span className="sm:hidden">Start</span>
-              <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+              <svg className="w-2.5 h-2.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
             </button>

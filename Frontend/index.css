@@ -102,3 +102,19 @@ textarea:focus-visible {
 .animate-float {
   animation: float 8s ease-in-out infinite;
 }
+
+/* Walking figure animations */
+@keyframes walk {
+  0% { transform: rotate(-15deg); }
+  100% { transform: rotate(15deg); }
+}
+
+@keyframes swing {
+  0% { transform: rotate(-20deg); }
+  100% { transform: rotate(20deg); }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}

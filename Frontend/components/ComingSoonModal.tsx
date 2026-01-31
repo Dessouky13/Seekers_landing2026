@@ -20,8 +20,8 @@ const ComingSoonModal: React.FC<ComingSoonModalProps> = ({ isOpen, onClose }) =>
     setError(null);
 
     try {
-      // Send to Formspree (replace with your Formspree form ID)
-      const formspreeEndpoint = import.meta.env.VITE_WAITLIST_ENDPOINT || 'https://formspree.io/f/your-form-id';
+      // Send to Formspree
+      const formspreeEndpoint = import.meta.env.VITE_WAITLIST_ENDPOINT || 'https://formspree.io/f/xlglrdzp';
       
       const response = await fetch(formspreeEndpoint, {
         method: 'POST',

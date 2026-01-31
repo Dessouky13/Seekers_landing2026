@@ -4,6 +4,300 @@ import Logo from '../components/Logo';
 import Modal from '../components/Modal';
 import ComingSoonModal from '../components/ComingSoonModal';
 
+// Process Timeline Steps Data
+const processSteps = [
+  { 
+    step: '01', 
+    title: 'Consultation', 
+    desc: 'We audit your current workflows and identify automation opportunities.',
+    icon: 'handshake'
+  },
+  { 
+    step: '02', 
+    title: 'Provisioning', 
+    desc: 'We configure your knowledge base and meta connections on the platform.',
+    icon: 'settings'
+  },
+  { 
+    step: '03', 
+    title: 'Deployment', 
+    desc: 'Our engineers push your agentic workflows live to all social channels.',
+    icon: 'rocket_launch'
+  },
+  { 
+    step: '04', 
+    title: 'Optimization', 
+    desc: 'Real-time monitoring and iterative training for maximum performance.',
+    icon: 'trending_up'
+  },
+];
+
+// Energy Pulse Component - Travels along the timeline track
+const EnergyPulse: React.FC<{ position: number }> = ({ position }) => (
+  <div 
+    className="absolute transition-all duration-1000 ease-out z-10 pointer-events-none"
+    style={{ 
+      left: `${position}%`,
+      top: '50%',
+      transform: 'translate(-50%, -50%)'
+    }}
+  >
+    {/* Core pulse */}
+    <div className="relative">
+      {/* Outer glow ring */}
+      <div className="absolute -inset-3 bg-primary/20 rounded-full blur-xl animate-pulse" />
+      
+      {/* Middle glow */}
+      <div className="absolute -inset-1.5 bg-primary/40 rounded-full blur-md" />
+      
+      {/* Core orb */}
+      <div className="relative size-4 bg-gradient-to-br from-white via-primary to-indigo-500 rounded-full shadow-[0_0_20px_rgba(161,158,255,0.8)]" />
+      
+      {/* Sparkle particles */}
+      <div className="absolute -top-1 -left-1 size-1 bg-white rounded-full animate-ping" style={{ animationDuration: '1s' }} />
+      <div className="absolute -bottom-1 -right-1 size-1 bg-white rounded-full animate-ping" style={{ animationDuration: '1.5s', animationDelay: '0.3s' }} />
+    </div>
+  </div>
+);
+
+// Trailing particles that follow the pulse
+const TrailingParticles: React.FC<{ position: number }> = ({ position }) => (
+  <>
+    {[...Array(5)].map((_, i) => (
+      <div
+        key={i}
+        className="absolute transition-all duration-1000 ease-out z-5 pointer-events-none"
+        style={{
+          left: `${Math.max(0, position - (i + 1) * 3)}%`,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          opacity: 1 - (i * 0.2)
+        }}
+      >
+        <div 
+          className="size-1.5 bg-primary/60 rounded-full blur-[1px]"
+          style={{ animationDelay: `${i * 100}ms` }}
+        />
+      </div>
+    ))}
+  </>
+);
+
+// Process Timeline Component
+const ProcessTimeline: React.FC = () => {
+  const [activeStep, setActiveStep] = useState(0);
+  const [pulsePosition, setPulsePosition] = useState(12.5);
+
+  // Auto-advance through steps
+  useEffect(() => {
+    const stepPositions = [12.5, 37.5, 62.5, 87.5]; // Positions for 4 steps (centered in each quarter)
+    
+    const interval = setInterval(() => {
+      setActiveStep((prev) => {
+        const next = (prev + 1) % 4;
+        // Animate pulse to next position
+        setPulsePosition(stepPositions[next]);
+        return next;
+      });
+    }, 3000); // Change step every 3 seconds
+
+    // Set initial position
+    setPulsePosition(stepPositions[0]);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative">
+      {/* Desktop Timeline */}
+      <div className="hidden md:block relative pt-20 pb-8">
+        {/* Timeline track */}
+        <div className="absolute top-1/2 left-0 right-0 h-1 bg-white/10 rounded-full -translate-y-1/2 overflow-visible">
+          {/* Progress fill with gradient */}
+          <div 
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary via-indigo-500 to-primary rounded-full transition-all duration-1000"
+            style={{ width: `${pulsePosition + 2}%` }}
+          />
+          
+          {/* Animated glow on the track */}
+          <div 
+            className="absolute top-1/2 -translate-y-1/2 h-3 w-20 bg-gradient-to-r from-transparent via-primary/50 to-transparent blur-sm transition-all duration-1000 rounded-full"
+            style={{ left: `${pulsePosition - 5}%` }}
+          />
+        </div>
+
+        {/* Energy Pulse */}
+        <EnergyPulse position={pulsePosition} />
+        
+        {/* Trailing Particles */}
+        <TrailingParticles position={pulsePosition} />
+
+        {/* Step nodes */}
+        <div className="relative flex justify-between">
+          {processSteps.map((item, idx) => (
+            <div 
+              key={idx} 
+              className={`flex flex-col items-center w-1/4 transition-all duration-500 ${
+                idx <= activeStep ? 'opacity-100' : 'opacity-50'
+              }`}
+            >
+              {/* Futuristic Node */}
+              <div className="relative group">
+                {/* Outer rotating ring - only on active */}
+                {idx === activeStep && (
+                  <div className="absolute -inset-2 rounded-full border border-primary/30 animate-[spin_8s_linear_infinite]">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 size-2 bg-primary rounded-full" />
+                  </div>
+                )}
+                
+                {/* Glow effect */}
+                {idx <= activeStep && (
+                  <div className="absolute -inset-3 bg-primary/20 rounded-full blur-xl transition-all duration-500" />
+                )}
+                
+                {/* Main node */}
+                <div 
+                  className={`relative size-16 md:size-18 rounded-2xl flex items-center justify-center transition-all duration-500 border-2 ${
+                    idx <= activeStep 
+                      ? 'bg-gradient-to-br from-primary/20 to-indigo-500/20 border-primary shadow-[0_0_30px_rgba(161,158,255,0.4)]' 
+                      : 'bg-white/5 border-white/10'
+                  } ${idx === activeStep ? 'scale-110' : 'group-hover:scale-105'}`}
+                >
+                  {/* Inner glow */}
+                  {idx <= activeStep && (
+                    <div className="absolute inset-1 bg-gradient-to-br from-primary/10 to-transparent rounded-xl" />
+                  )}
+                  
+                  <span className={`material-symbols-outlined text-2xl md:text-3xl font-black transition-colors relative z-10 ${
+                    idx <= activeStep ? 'text-primary' : 'text-slate-500'
+                  }`}>
+                    {item.icon}
+                  </span>
+                  
+                  {/* Corner accents */}
+                  <div className={`absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 rounded-tl-lg transition-colors ${idx <= activeStep ? 'border-primary' : 'border-white/20'}`} />
+                  <div className={`absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 rounded-tr-lg transition-colors ${idx <= activeStep ? 'border-primary' : 'border-white/20'}`} />
+                  <div className={`absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 rounded-bl-lg transition-colors ${idx <= activeStep ? 'border-primary' : 'border-white/20'}`} />
+                  <div className={`absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 rounded-br-lg transition-colors ${idx <= activeStep ? 'border-primary' : 'border-white/20'}`} />
+                </div>
+                
+                {/* Pulse rings when active */}
+                {idx === activeStep && (
+                  <>
+                    <div className="absolute inset-0 rounded-2xl border border-primary animate-ping opacity-30" />
+                    <div className="absolute -inset-1 rounded-2xl border border-primary/50 animate-pulse" />
+                  </>
+                )}
+              </div>
+
+              {/* Step content */}
+              <div className={`mt-10 text-center transition-all duration-500 ${
+                idx === activeStep ? 'transform scale-105' : ''
+              }`}>
+                <span className={`text-sm font-black uppercase tracking-widest transition-colors ${
+                  idx <= activeStep ? 'text-primary' : 'text-slate-600'
+                }`}>
+                  Step {item.step}
+                </span>
+                <h4 className={`text-2xl md:text-3xl font-black mt-2 mb-3 tracking-tight transition-colors ${
+                  idx <= activeStep ? 'text-white' : 'text-slate-500'
+                }`}>
+                  {item.title}
+                </h4>
+                <p className={`text-base md:text-lg font-medium leading-relaxed max-w-[240px] mx-auto transition-colors ${
+                  idx <= activeStep ? 'text-slate-400' : 'text-slate-600'
+                }`}>
+                  {item.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile Timeline (Vertical) */}
+      <div className="md:hidden relative pl-8">
+        {/* Vertical line */}
+        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-white/10">
+          <div 
+            className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary to-indigo-500 transition-all duration-1000"
+            style={{ height: `${(activeStep / 3) * 100}%` }}
+          />
+        </div>
+
+        {/* Steps */}
+        <div className="space-y-12">
+          {processSteps.map((item, idx) => (
+            <div 
+              key={idx} 
+              className={`relative flex items-start gap-6 transition-all duration-500 ${
+                idx <= activeStep ? 'opacity-100' : 'opacity-40'
+              }`}
+            >
+              {/* Node */}
+              <div 
+                className={`absolute -left-4 size-8 rounded-full flex items-center justify-center transition-all duration-500 ${
+                  idx <= activeStep 
+                    ? 'bg-primary shadow-[0_0_20px_rgba(161,158,255,0.5)]' 
+                    : 'bg-white/10 border border-white/20'
+                }`}
+              >
+                {idx === activeStep && (
+                  <>
+                    {/* Mobile AI Avatar indicator */}
+                    <span className="material-symbols-outlined text-sm text-background-dark font-black">
+                      smart_toy
+                    </span>
+                    <div className="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-50" />
+                  </>
+                )}
+                {idx !== activeStep && (
+                  <span className={`material-symbols-outlined text-sm font-black ${
+                    idx < activeStep ? 'text-background-dark' : 'text-slate-600'
+                  }`}>
+                    {idx < activeStep ? 'check' : item.icon}
+                  </span>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className={`transition-all duration-500 ${idx === activeStep ? 'transform scale-105 origin-left' : ''}`}>
+                <span className={`text-xs font-black uppercase tracking-widest ${
+                  idx <= activeStep ? 'text-primary' : 'text-slate-600'
+                }`}>
+                  Step {item.step}
+                </span>
+                <h4 className={`text-xl font-black mt-1 mb-2 tracking-tight ${
+                  idx <= activeStep ? 'text-white' : 'text-slate-500'
+                }`}>
+                  {item.title}
+                </h4>
+                <p className={`text-base font-medium leading-relaxed ${
+                  idx <= activeStep ? 'text-slate-400' : 'text-slate-600'
+                }`}>
+                  {item.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Timeline legend */}
+      <div className="mt-12 flex items-center justify-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-500">
+        <div className="flex items-center gap-2">
+          <div className="size-3 rounded-full bg-primary animate-pulse" />
+          <span>Current Step</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="size-3 rounded-full bg-white/30" />
+          <span>Upcoming</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const LandingPage: React.FC = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [isComingSoonModalOpen, setIsComingSoonModalOpen] = useState(false);
@@ -11,7 +305,7 @@ const LandingPage: React.FC = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   
   // Cal.com link from environment or default
-  const calLink = import.meta.env.VITE_CAL_LINK || 'team-seekersai/discovery-call';
+  const calLink = import.meta.env.VITE_CAL_LINK || 'seeker/30min';
   const contactPhone = import.meta.env.VITE_CONTACT_PHONE || '01211100767';
 
   // Scroll direction detection for hide/show nav
@@ -173,32 +467,15 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Process Section */}
+      {/* Process Section - Animated Timeline */}
       <section id="process" className="max-w-7xl mx-auto px-6 py-20 md:py-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
-          <div className="space-y-8 md:space-y-12">
-            <div>
-              <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-4">THE PROCESS</p>
-              <h2 className="text-3xl md:text-6xl font-extrabold tracking-tight leading-tight">From Strategy to Execution</h2>
-            </div>
-            <div className="space-y-6 md:space-y-8">
-              {[
-                { step: '01', title: 'Consultation', desc: 'We audit your current workflows and identify automation opportunities.' },
-                { step: '02', title: 'Provisioning', desc: 'We configure your knowledge base and meta connections on the platform.' },
-                { step: '03', title: 'Deployment', desc: 'Our engineers push your agentic workflows live to all social channels.' },
-                { step: '04', title: 'Optimization', desc: 'Real-time monitoring and iterative training for maximum performance.' },
-              ].map((item, idx) => (
-                <div key={idx} className="flex gap-4 md:gap-8 items-start group">
-                  <div className="text-3xl md:text-5xl font-black text-primary/20 group-hover:text-primary transition-colors leading-none">{item.step}</div>
-                  <div>
-                    <h4 className="text-lg md:text-2xl font-black mb-2 tracking-tight group-hover:text-white transition-colors">{item.title}</h4>
-                    <p className="text-[12px] md:text-base text-slate-500 font-medium leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="text-center mb-16 md:mb-24">
+          <p className="text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-4">THE PROCESS</p>
+          <h2 className="text-3xl md:text-6xl font-extrabold tracking-tight leading-tight">From Strategy to Execution</h2>
         </div>
+        
+        {/* Animated Timeline */}
+        <ProcessTimeline />
       </section>
 
       {/* Footer Contact */}
@@ -232,7 +509,7 @@ const LandingPage: React.FC = () => {
           <div className="lg:col-span-5">
             <div className="presentation-card p-8 md:p-14 rounded-3xl md:rounded-[4rem] text-center flex flex-col items-center">
               <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-[3rem] mb-8 md:mb-12 shadow-[0_30px_100px_rgba(255,255,255,0.1)]">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://seekersai.org" alt="QR Code" className="size-48 md:size-64" />
+                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://cal.com/${calLink}`} alt="QR Code - Book a Call" className="size-48 md:size-64" />
               </div>
               <h3 className="text-2xl md:text-4xl font-black mb-4 md:mb-6 tracking-tight">Schedule Consultation</h3>
               <p className="text-base md:text-xl text-slate-400 font-medium mb-8 md:mb-12 leading-relaxed">Scan to book your free strategy session with our experts.</p>

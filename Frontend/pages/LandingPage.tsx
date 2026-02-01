@@ -416,7 +416,9 @@ const LandingPage: React.FC = () => {
           <div className="space-y-5 sm:space-y-6 md:space-y-10 max-w-6xl animate-in slide-in-from-bottom-12 duration-1000">
             <h1 className="text-[2.5rem] sm:text-5xl md:text-7xl lg:text-[8rem] font-extrabold tracking-tighter leading-[1.1] sm:leading-[1.1] md:leading-[1.15] mb-3 sm:mb-4 md:mb-8">
               Transform Your Business <br />
-              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400 italic pt-1 pb-3 sm:pt-2 sm:pb-4 md:pt-4 md:pb-10 px-2 sm:px-3 md:px-4" style={{ WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>with Intelligent AI</span>
+              <span className="inline-block overflow-visible">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400 italic pr-[0.15em]" style={{ WebkitBackgroundClip: 'text', backgroundClip: 'text' }}>with Intelligent AI</span>
+              </span>
             </h1>
             <p className="text-[11px] sm:text-xs md:text-lg lg:text-xl text-slate-400 font-bold uppercase tracking-[0.15em] sm:tracking-[0.4em] md:tracking-[0.6em] opacity-80 mb-6 sm:mb-8 md:mb-16">
               // NEXT-GEN AUTOMATION FOR THE MENA REGION

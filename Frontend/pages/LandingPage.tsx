@@ -398,9 +398,6 @@ const LandingPage: React.FC = () => {
           
           {/* CTA Buttons */}
           <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
-            {/* Desktop Portal button */}
-            <button onClick={() => setIsComingSoonModalOpen(true)} className="hidden sm:block text-[10px] sm:text-[11px] md:text-[12px] font-black text-slate-300 hover:text-primary transition-all uppercase tracking-[0.2em] sm:tracking-[0.4em] px-3 sm:px-4 md:px-8 py-2 sm:py-3 md:py-5 rounded-lg sm:rounded-xl md:rounded-2xl hover:bg-white/5">Portal</button>
-            
             {/* CTA Button */}
             <button onClick={() => setIsComingSoonModalOpen(true)} className="px-3 sm:px-5 md:px-12 py-2 sm:py-3 md:py-6 bg-primary text-background-dark rounded-lg sm:rounded-xl md:rounded-[2rem] text-[8px] sm:text-[10px] md:text-sm font-black shadow-[0_20px_40px_rgba(161,158,255,0.3)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.1em] sm:tracking-[0.2em] flex items-center gap-1 sm:gap-2 md:gap-4 whitespace-nowrap">
               <span className="hidden sm:inline">Get Started</span>
@@ -414,23 +411,23 @@ const LandingPage: React.FC = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-36 sm:pt-48 md:pt-72 pb-16 sm:pb-24 md:pb-48 text-center relative z-10">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-32 sm:pt-48 md:pt-72 pb-12 sm:pb-24 md:pb-48 text-center relative z-10">
         <div className="flex flex-col items-center">
-          <div className="space-y-4 sm:space-y-6 md:space-y-10 max-w-6xl animate-in slide-in-from-bottom-12 duration-1000">
-            <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-[8rem] font-extrabold tracking-tighter leading-[1.15] sm:leading-[1.1] md:leading-[1.2] mb-2 sm:mb-4 md:mb-8 overflow-visible">
+          <div className="space-y-5 sm:space-y-6 md:space-y-10 max-w-6xl animate-in slide-in-from-bottom-12 duration-1000">
+            <h1 className="text-[2.5rem] sm:text-5xl md:text-7xl lg:text-[8rem] font-extrabold tracking-tighter leading-[1.1] sm:leading-[1.1] md:leading-[1.15] mb-3 sm:mb-4 md:mb-8">
               Transform Your Business <br />
-              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400 italic py-1 sm:py-2 md:py-6 px-2 sm:px-4">with Intelligent AI</span>
+              <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400 italic py-2 sm:py-3 md:py-8 px-1">with Intelligent AI</span>
             </h1>
-            <p className="text-[9px] sm:text-[10px] md:text-lg lg:text-xl text-slate-400 font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] md:tracking-[0.6em] opacity-80 mb-4 sm:mb-8 md:mb-16">
+            <p className="text-[11px] sm:text-xs md:text-lg lg:text-xl text-slate-400 font-bold uppercase tracking-[0.15em] sm:tracking-[0.4em] md:tracking-[0.6em] opacity-80 mb-6 sm:mb-8 md:mb-16">
               // NEXT-GEN AUTOMATION FOR THE MENA REGION
             </p>
-            <div className="pt-6 sm:pt-8 md:pt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-12">
-              <button onClick={scrollToBooking} className="w-full sm:w-auto px-8 sm:px-10 md:px-20 py-4 sm:py-5 md:py-8 bg-primary text-background-dark rounded-xl sm:rounded-2xl md:rounded-[2.5rem] text-xs sm:text-sm md:text-lg font-black shadow-[0_30px_60px_rgba(161,158,255,0.5)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.2em] sm:tracking-[0.3em]">
+            <div className="pt-4 sm:pt-8 md:pt-12 flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-6 md:gap-12">
+              <button onClick={scrollToBooking} className="w-full sm:w-auto px-10 sm:px-10 md:px-20 py-5 sm:py-5 md:py-8 bg-primary text-background-dark rounded-2xl sm:rounded-2xl md:rounded-[2.5rem] text-sm sm:text-sm md:text-lg font-black shadow-[0_30px_60px_rgba(161,158,255,0.5)] hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.15em] sm:tracking-[0.3em]">
                 Book a Discovery Call
               </button>
-              <div className="flex flex-col items-center gap-1 sm:gap-2 md:gap-4 opacity-40">
-                <span className="text-[9px] sm:text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em]">Cairo Headquarters</span>
-                <span className="text-[9px] sm:text-[10px] md:text-[12px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em]">Global Infrastructure</span>
+              <div className="flex flex-col items-center gap-2 sm:gap-2 md:gap-4 opacity-40">
+                <span className="text-[11px] sm:text-[10px] md:text-[12px] font-black uppercase tracking-[0.2em] sm:tracking-[0.5em]">Cairo Headquarters</span>
+                <span className="text-[11px] sm:text-[10px] md:text-[12px] font-black uppercase tracking-[0.2em] sm:tracking-[0.5em]">Global Infrastructure</span>
               </div>
             </div>
           </div>

@@ -65,13 +65,7 @@ const Home: React.FC = () => {
         <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-background-dark/40 via-transparent to-background-dark" />
 
         <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 pb-28 sm:pb-32 text-center">
-          <Reveal className="flex justify-center">
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-primary backdrop-blur-md">
-              <span className="size-1.5 rounded-full bg-accent animate-pulse" />
-              Next-gen automation · MENA region
-            </span>
-          </Reveal>
-          <Reveal delay={120}>
+          <Reveal>
             <h1 className="mt-6 font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.08] text-white">
               Transform your business with <span className="text-gradient">intelligent AI</span>
             </h1>

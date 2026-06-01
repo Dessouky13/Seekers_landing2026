@@ -373,7 +373,10 @@ const ParticleHero: React.FC<{ className?: string }> = ({ className = '' }) => {
       if (!particles) return;
       const visH = 2 * Math.tan((42 * Math.PI) / 180 / 2) * BASE_Z;
       const visW = visH * camera.aspect;
-      const fit = Math.max(0.3, Math.min(1.0, (visW * 0.84) / TEXT_W));
+      const base = Math.min(1.0, (visW * 0.84) / TEXT_W);
+      // On phones, shrink a bit more so the cloud sits in the top area and never
+      // crowds the hero copy below it.
+      const fit = isMobile ? Math.max(0.24, base * 0.8) : Math.max(0.3, base);
       particles.scale.setScalar(fit);
     };
 
@@ -459,7 +462,7 @@ const ParticleHero: React.FC<{ className?: string }> = ({ className = '' }) => {
         particles.rotation.y = smx * 0.16;
         particles.rotation.x = -smy * 0.09;
         const scroll = window.scrollY;
-        const yBase = isMobile ? 0.85 : 0.5;
+        const yBase = isMobile ? 1.4 : 0.5;
         particles.position.y = yBase + Math.sin(t * 0.25) * 0.06 + scroll * 0.0016;
         camera.position.z = 7.4 + Math.min(scroll, 900) * 0.0009;
 

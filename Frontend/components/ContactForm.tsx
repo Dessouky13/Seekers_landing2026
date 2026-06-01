@@ -11,9 +11,11 @@ import React, { useRef, useState } from 'react';
  */
 
 const CONTACT_EMAIL = (import.meta as any).env?.VITE_CONTACT_EMAIL || 'team@seekersai.org';
-// Prefer a dedicated contact endpoint, fall back to the configured Formspree form.
+// Submissions POST here. Defaults to the Seekers n8n WhatsApp webhook; override
+// with VITE_CONTACT_ENDPOINT (e.g. to swap webhooks without a code change).
+const N8N_WEBHOOK = 'https://n8n.srv1131703.hstgr.cloud/webhook/e1fdd9e8-28d7-4e7a-909e-a854acac808a';
 const CONTACT_ENDPOINT = ((import.meta as any).env?.VITE_CONTACT_ENDPOINT ||
-  (import.meta as any).env?.VITE_WAITLIST_ENDPOINT) as string | undefined;
+  N8N_WEBHOOK) as string;
 
 const SERVICES = [
   'AI Chatbots & Customer Engagement',

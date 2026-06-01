@@ -13,4 +13,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://seekersai.org/sitemap.xml
+Sitemap: https://www.seekersai.org/sitemap.xml

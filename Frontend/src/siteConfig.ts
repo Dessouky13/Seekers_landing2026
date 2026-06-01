@@ -6,9 +6,9 @@ const env = (import.meta as any).env || {};
 export const SITE = {
   name: 'Seekers AI',
   legalName: 'Seekers AI',
-  url: (env.VITE_SITE_URL || 'https://seekersai.org').replace(/\/$/, ''),
+  url: (env.VITE_SITE_URL || 'https://www.seekersai.org').replace(/\/$/, ''),
   email: env.VITE_CONTACT_EMAIL || 'team@seekersai.org',
-  phones: ['01211100767', '01044443752'],
+  phones: ['01044332566', '01044443752'],
   city: 'Cairo',
   country: 'Egypt',
   region: 'MENA',

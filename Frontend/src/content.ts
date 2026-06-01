@@ -16,9 +16,9 @@ export const SOLUTIONS: Solution[] = [
     icon: 'chat_bubble',
     title: 'AI Chatbots & Customer Engagement',
     short: 'Intelligent agents that handle inquiries, qualify leads, and support sales 24/7.',
-    long: 'Deploy multilingual (Arabic + English) AI agents across WhatsApp, Instagram, Messenger, and your website. They answer questions, qualify and route leads, book appointments, and escalate to humans when needed — so you never miss a customer interaction, day or night.',
+    long: 'Deploy multilingual AI agents — fluent in Arabic, English, and Franco-Arabic (Arabizi) — across WhatsApp, Instagram, Messenger, and your website. They answer questions, qualify and route leads, book appointments, and escalate to humans when needed — so you never miss a customer interaction, day or night.',
     features: [
-      '24/7 multilingual support (Arabic + English)',
+      '24/7 support in Arabic, English & Franco-Arabic',
       'WhatsApp, Instagram, Messenger & web',
       'Lead qualification and routing',
       'Human handoff with full context',
@@ -146,7 +146,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: 'Which channels do your AI chatbots support?',
-    a: 'Our agents work across WhatsApp, Instagram, Facebook Messenger, and your website, with full support for both Arabic and English conversations.',
+    a: 'Our agents work across WhatsApp, Instagram, Facebook Messenger, and your website. They fully support Arabic, English, and Franco-Arabic (Arabizi — Arabic typed in Latin letters and numbers) — tuned for how people actually chat across the MEA market.',
   },
   {
     q: 'How long does it take to launch?',

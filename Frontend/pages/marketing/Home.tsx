@@ -18,7 +18,7 @@ const MARQUEE = [
   { icon: 'bolt', label: 'Real-time Ops' },
   { icon: 'verified_user', label: 'Enterprise Security' },
   { icon: 'insights', label: 'Live Analytics' },
-  { icon: 'language', label: 'Arabic + English' },
+  { icon: 'language', label: 'Arabic · English · Franco' },
 ];
 
 const jsonLd = [

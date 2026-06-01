@@ -55,6 +55,10 @@ const ContactForm: React.FC = () => {
         return emailOk(value) ? '' : 'Enter a valid email (e.g. you@company.com).';
       case 'company':
         return value.trim().length < 2 ? 'Please enter your company name.' : '';
+      case 'phone': {
+        if (!value.trim()) return 'Phone number is required.';
+        return value.replace(/\D/g, '').length < 7 ? 'Enter a valid phone number.' : '';
+      }
       case 'message':
         return value.trim().length < 10 ? 'Tell us a little about your goals (10+ characters).' : '';
       default:
@@ -62,9 +66,11 @@ const ContactForm: React.FC = () => {
     }
   };
 
+  const REQUIRED: (keyof FormState)[] = ['name', 'email', 'company', 'phone', 'message'];
+
   const validateAll = (): Errors => {
     const e: Errors = {};
-    (['name', 'email', 'company', 'message'] as (keyof FormState)[]).forEach((k) => {
+    REQUIRED.forEach((k) => {
       const msg = validateField(k, form[k]);
       if (msg) e[k] = msg;
     });
@@ -88,11 +94,11 @@ const ContactForm: React.FC = () => {
     e.preventDefault();
     const eMap = validateAll();
     setErrors(eMap);
-    setTouched({ name: true, email: true, company: true, message: true });
+    setTouched({ name: true, email: true, company: true, phone: true, message: true });
 
     if (Object.keys(eMap).length) {
       // focus-management: jump to the first invalid field
-      const first = (['name', 'email', 'company', 'message'] as (keyof FormState)[]).find((k) => eMap[k]);
+      const first = REQUIRED.find((k) => eMap[k]);
       if (first) formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
       return;
     }
@@ -215,12 +221,14 @@ const ContactForm: React.FC = () => {
 
         {/* Phone */}
         <div>
-          <Label htmlFor="cf-phone">Phone <span className="text-slate-600 normal-case tracking-normal">(optional)</span></Label>
+          <Label htmlFor="cf-phone" required>Phone</Label>
           <input
             id="cf-phone" name="phone" type="tel" inputMode="tel" autoComplete="tel"
-            value={form.phone} onChange={onChange('phone')}
+            value={form.phone} onChange={onChange('phone')} onBlur={onBlur('phone')}
+            aria-invalid={!!errors.phone} aria-describedby="cf-phone-err"
             className={`${inputBase} ${borderOf('phone')}`} placeholder="+20 100 000 0000"
           />
+          <ErrorText id="cf-phone-err" msg={errors.phone} />
         </div>
 
         {/* Company size */}

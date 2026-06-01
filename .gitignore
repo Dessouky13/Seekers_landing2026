@@ -71,3 +71,6 @@ dump.rdb
 
 # Build cache
 .turbo/
+
+# Local design skill (ui-ux-pro-max) - dev tooling, not product code
+.claude/

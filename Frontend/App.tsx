@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { NotificationProvider } from './src/context/NotificationContext';
 import Sidebar from './components/Sidebar';
@@ -8,6 +8,15 @@ import Header from './components/Header';
 
 // Check if landing-only mode (for Vercel deployment)
 const isLandingOnly = import.meta.env.VITE_LANDING_ONLY === 'true';
+
+// Marketing site (multi-page)
+import MarketingLayout from './components/MarketingLayout';
+import Home from './pages/marketing/Home';
+import Solutions from './pages/marketing/Solutions';
+import Industries from './pages/marketing/Industries';
+import AboutPage from './pages/marketing/About';
+import Faq from './pages/marketing/Faq';
+import ContactPage from './pages/marketing/Contact';
 
 // Static Pages
 import LandingPage from './pages/LandingPage';
@@ -77,14 +86,20 @@ const AppContent: React.FC = () => {
   const { isAuthenticated, isAdmin, isLoading, logout } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Landing-only mode: show only the landing page
+  // Landing-only mode: full multi-page marketing site
   if (isLandingOnly) {
     return (
-      <div className="min-h-screen bg-background-light dark:bg-background-dark">
-        <Routes>
-          <Route path="*" element={<LandingPage />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route element={<MarketingLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/solutions" element={<Solutions />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     );
   }
 
@@ -289,13 +304,13 @@ const AppContent: React.FC = () => {
 // Root App component with providers
 const App: React.FC = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <AuthProvider>
         <NotificationProvider>
           <AppContent />
         </NotificationProvider>
       </AuthProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 

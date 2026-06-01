@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
-import ParticleHero from '../../components/ParticleHero';
 import ProcessTimeline from '../../components/ProcessTimeline';
 import CtaBand from '../../components/CtaBand';
 import Seo from '../../components/Seo';
@@ -9,6 +8,9 @@ import Tilt from '../../components/Tilt';
 import { Reveal, useParallax } from '../../components/Reveal';
 import { SOLUTIONS, STATS } from '../../src/content';
 import { SITE } from '../../src/siteConfig';
+
+// Code-split the heavy three.js hero so it doesn't block first paint / LCP.
+const ParticleHero = lazy(() => import('../../components/ParticleHero'));
 
 const MARQUEE = [
   { icon: 'smart_toy', label: 'Autonomous Agents' },
@@ -24,22 +26,57 @@ const MARQUEE = [
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'ProfessionalService',
+    '@id': `${SITE.url}/#organization`,
     name: SITE.name,
+    alternateName: 'Seekers',
     url: SITE.url,
     logo: `${SITE.url}/seekers-logo.png`,
-    description: SITE.description,
+    image: `${SITE.url}/seekers-logo.png`,
+    description:
+      'Seekers AI is an AI automation agency based in Cairo, Egypt, serving the MENA region. We design, deploy, and optimize AI chatbots, intelligent process automation, custom agentic applications, and finance automation.',
+    slogan: SITE.tagline,
     email: SITE.email,
     telephone: SITE.phones[0],
-    address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressCountry: 'EG' },
-    areaServed: 'MENA',
+    priceRange: '$$',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Cairo',
+      addressRegion: 'Cairo Governorate',
+      addressCountry: 'EG',
+    },
+    geo: { '@type': 'GeoCoordinates', latitude: 30.0444, longitude: 31.2357 },
+    areaServed: [
+      { '@type': 'Country', name: 'Egypt' },
+      { '@type': 'Place', name: 'Middle East and North Africa (MENA)' },
+    ],
+    knowsLanguage: ['ar', 'en'],
     sameAs: [SITE.social.linkedin, SITE.social.x, SITE.social.instagram],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'sales',
+      email: SITE.email,
+      telephone: SITE.phones[0],
+      availableLanguage: ['Arabic', 'English'],
+      areaServed: 'EG',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'AI Automation Services',
+      itemListElement: SOLUTIONS.map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s.title, description: s.short },
+      })),
+    },
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${SITE.url}/#website`,
     name: SITE.name,
     url: SITE.url,
+    inLanguage: ['en', 'ar'],
+    publisher: { '@id': `${SITE.url}/#organization` },
   },
 ];
 
@@ -61,7 +98,9 @@ const Home: React.FC = () => {
 
       {/* Hero */}
       <section id="top" className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
-        <ParticleHero />
+        <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-b from-surface-dark/40 via-background-dark to-background-dark" />}>
+          <ParticleHero />
+        </Suspense>
         <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-background-dark/40 via-transparent to-background-dark" />
 
         <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 pb-28 sm:pb-32 text-center">

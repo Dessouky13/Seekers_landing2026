@@ -8,7 +8,7 @@ export const SITE = {
   legalName: 'Seekers AI',
   url: (env.VITE_SITE_URL || 'https://seekersai.org').replace(/\/$/, ''),
   email: env.VITE_CONTACT_EMAIL || 'team@seekersai.org',
-  phones: ['01044332566', '01010748045'],
+  phones: ['01211100767', '01044443752'],
   city: 'Cairo',
   country: 'Egypt',
   region: 'MENA',

@@ -168,4 +168,12 @@ export const FAQS: Faq[] = [
     q: 'Where is Seekers AI based?',
     a: 'Seekers AI is headquartered in Cairo, Egypt, and serves clients across the MENA region with global cloud infrastructure.',
   },
+  {
+    q: 'Is Seekers AI an AI agency in Egypt?',
+    a: 'Yes. Seekers AI is an AI automation agency based in Cairo, Egypt. We help local and regional businesses adopt AI agents and intelligent automation — from WhatsApp and Instagram chatbots to back-office process and finance automation — with full support for Arabic, English, and Franco-Arabic.',
+  },
+  {
+    q: 'How do I choose an AI automation agency in Egypt?',
+    a: 'Look for an agency that understands the local market (Arabic, English, and Franco-Arabic), integrates with the channels your customers actually use (WhatsApp, Instagram, Messenger), connects to your existing CRM and tools, ships quickly (a live deployment in 2–4 weeks), and keeps optimizing after launch. Seekers AI is built around exactly these criteria.',
+  },
 ];

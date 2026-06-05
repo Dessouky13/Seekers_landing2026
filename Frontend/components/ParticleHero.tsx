@@ -542,17 +542,21 @@ const ParticleHero: React.FC<{ className?: string }> = ({ className = '' }) => {
         </div>
       </div>
 
-      {/* Dot navigation (bottom-center) */}
-      <div className="pointer-events-auto absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2.5">
+      {/* Dot navigation (bottom-center) — 44px hit areas around small visual dots */}
+      <div className="pointer-events-auto absolute bottom-1 left-1/2 z-20 flex -translate-x-1/2 gap-0.5">
         {SHAPE_NAMES.map((name, i) => (
           <button
             key={name}
             aria-label={`Show ${name}`}
             onClick={() => jumpRef.current?.(i)}
-            className={`h-2 w-2 rounded-full border transition-all duration-300 ${
-              i === activeShape ? 'scale-125 border-primary bg-primary' : 'border-primary/40 bg-transparent hover:bg-primary/30'
-            }`}
-          />
+            className="group flex h-11 w-8 items-center justify-center"
+          >
+            <span
+              className={`block h-2 w-2 rounded-full border transition-all duration-300 ${
+                i === activeShape ? 'scale-125 border-primary bg-primary' : 'border-primary/40 bg-transparent group-hover:bg-primary/30'
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

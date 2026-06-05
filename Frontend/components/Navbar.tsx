@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <div
-        className={`fixed top-2 sm:top-4 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-1.5rem)] md:w-[calc(100%-3rem)] max-w-7xl z-50 px-1 sm:px-2 transition-transform duration-500 ${
+        className={`fixed top-[calc(env(safe-area-inset-top)+0.5rem)] sm:top-[calc(env(safe-area-inset-top)+1rem)] md:top-[calc(env(safe-area-inset-top)+1.5rem)] left-1/2 -translate-x-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-1.5rem)] md:w-[calc(100%-3rem)] max-w-7xl z-50 px-1 sm:px-2 transition-transform duration-500 ${
           visible ? 'translate-y-0' : '-translate-y-[200%]'
         }`}
       >
@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
       >
         <div className="absolute inset-0 bg-background-dark/80 backdrop-blur-xl" onClick={() => setOpen(false)} />
         <div
-          className={`absolute top-0 right-0 h-full w-[82%] max-w-sm bg-surface-dark/95 border-l border-white/10 shadow-2xl px-6 pt-24 pb-10 flex flex-col transition-transform duration-400 ${
+          className={`absolute top-0 right-0 h-full w-[82%] max-w-sm bg-surface-dark/95 border-l border-white/10 shadow-2xl px-6 pt-[calc(env(safe-area-inset-top)+6rem)] pb-[calc(env(safe-area-inset-bottom)+2.5rem)] flex flex-col transition-transform duration-400 ${
             open ? 'translate-x-0' : 'translate-x-full'
           }`}
         >

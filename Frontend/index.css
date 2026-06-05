@@ -1,5 +1,38 @@
 /* Global styles for Seekers AI Platform */
 
+/* =====================================================================
+   RESPONSIVE / MOBILE-FIRST NOTES
+   ---------------------------------------------------------------------
+   The marketing site is built mobile-first with Tailwind utilities:
+   unprefixed classes are the base (target 320–430px phones) and `sm:`,
+   `md:`, `lg:` scale UP from there. Layout was audited for horizontal
+   overflow at every breakpoint below — scrollWidth === viewport at all of
+   them (no horizontal scroll).
+
+   Breakpoints (Tailwind defaults, min-width):
+     base   0–639px   — small Android (320/360) → iPhone (390/430)
+     sm     ≥ 640px
+     md     ≥ 768px   — tablet / desktop nav
+     lg     ≥ 1024px
+     xl     ≥ 1280px  (containers capped at max-w-7xl)
+
+   Mobile conventions used across components:
+     • box-sizing: border-box globally (below).
+     • Safe gutters: sections use `px-4 sm:px-6` (16px → 24px).
+     • Hero height uses `min-h-[100svh]` (svh, not vh, for mobile chrome).
+     • Fluid columns: grids stack to 1–2 cols on base, expand via sm/md/lg;
+       no fixed px container widths (uses %, calc(), max-w-*).
+     • Body copy capped with max-w-* for readable line length.
+
+   Hardening changes made in the responsive pass:
+     • viewport meta: added `viewport-fit=cover`.
+     • Navbar + mobile drawer respect `env(safe-area-inset-*)` so the fixed
+       bar clears notches / status bars / gesture areas (insets are 0 on
+       non-notched devices, so the look is unchanged there).
+     • Touch targets ≥ 44px: hero shape-dots wrapped in 44px hit areas;
+       footer social icons bumped 40 → 44px.
+   ===================================================================== */
+
 /* Reset and base styles */
 *, *::before, *::after {
   box-sizing: border-box;

@@ -48,7 +48,7 @@ const Footer: React.FC = () => (
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:border-primary/40 hover:text-primary transition-colors"
+                className="flex size-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-300 hover:border-primary/40 hover:text-primary transition-colors"
               >
                 <SocialIcon name={s.icon} />
               </a>

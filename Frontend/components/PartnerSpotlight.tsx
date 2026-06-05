@@ -37,9 +37,9 @@ const PartnerSpotlight: React.FC = () => (
           </div>
 
           <div className="md:col-span-5">
-            <div className="flex items-center justify-center rounded-3xl border border-white/10 bg-white/[0.04] p-8 sm:p-10 min-h-[140px]">
+            <div className="flex items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-black/30 p-6 sm:p-8 min-h-[150px]">
               {trafficLogo ? (
-                <img src={trafficLogo} alt="Traffic — official partner" className="max-h-16 w-auto object-contain" draggable={false} />
+                <img src={trafficLogo} alt="Traffic — official partner" className="max-h-28 sm:max-h-32 w-auto object-contain rounded-2xl" draggable={false} />
               ) : (
                 <span className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
                   Traffic<span className="text-primary">.</span>

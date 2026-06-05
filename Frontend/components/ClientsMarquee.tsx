@@ -27,13 +27,15 @@ const fill = <T,>(arr: T[]): T[] => {
   return Array.from({ length: k }).flatMap(() => arr);
 };
 
+// Uniform white logo cards — keeps mixed-background logos (transparent, white,
+// or dark) all crisp and legible, with a subtle lift on hover.
 const Tile: React.FC<{ logo: { url: string; name: string } }> = ({ logo }) => (
-  <div className="group flex h-20 w-40 sm:w-44 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] px-6 transition-colors duration-300 hover:border-primary/30 hover:bg-white/[0.06]">
+  <div className="group flex h-24 w-44 sm:w-48 shrink-0 items-center justify-center rounded-2xl bg-white p-4 shadow-[0_12px_34px_-12px_rgba(0,0,0,0.55)] ring-1 ring-white/10 transition-transform duration-300 hover:-translate-y-1.5">
     <img
       src={logo.url}
       alt={logo.name || 'Client logo'}
       loading="lazy"
-      className="max-h-10 max-w-[7rem] w-auto object-contain opacity-60 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+      className="max-h-16 max-w-full w-auto object-contain"
       draggable={false}
     />
   </div>
@@ -59,9 +61,10 @@ const Row: React.FC<{ items: { url: string; name: string }[]; reverse?: boolean 
  */
 const ClientsMarquee: React.FC = () => {
   if (!LOGOS.length) return null;
-  const mid = Math.ceil(LOGOS.length / 2);
-  const rowA = LOGOS.slice(0, mid);
-  const rowB = LOGOS.length > 3 ? LOGOS.slice(mid) : LOGOS;
+  // Both rows show all logos; row B is offset by half so they don't line up.
+  const half = Math.floor(LOGOS.length / 2) || 1;
+  const rowA = LOGOS;
+  const rowB = LOGOS.length > 1 ? [...LOGOS.slice(half), ...LOGOS.slice(0, half)] : LOGOS;
 
   return (
     <section id="clients" className="scroll-mt-24 md:scroll-mt-28 relative z-10 py-16 sm:py-24 overflow-hidden">

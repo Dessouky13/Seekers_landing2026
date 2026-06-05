@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import ProcessTimeline from '../../components/ProcessTimeline';
 import ClientsMarquee from '../../components/ClientsMarquee';
 import TechStack from '../../components/TechStack';
-import PartnerSpotlight from '../../components/PartnerSpotlight';
 import CtaBand from '../../components/CtaBand';
 import Seo from '../../components/Seo';
 import CountUp from '../../components/CountUp';
@@ -100,13 +99,15 @@ const Home: React.FC = () => {
       />
 
       {/* Hero */}
-      <section id="top" className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
+      <section id="top" className="relative min-h-[100svh] flex flex-col justify-start md:justify-end overflow-hidden">
         <Suspense fallback={<div className="absolute inset-0 bg-gradient-to-b from-surface-dark/40 via-background-dark to-background-dark" />}>
           <ParticleHero />
         </Suspense>
-        <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-background-dark/40 via-transparent to-background-dark" />
+        <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-background-dark/30 via-background-dark/10 to-background-dark" />
 
-        <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 pb-28 sm:pb-32 text-center">
+        {/* On phones the copy is anchored just below the particle zone (~52svh);
+            on md+ it sits at the bottom over the full-bleed particle backdrop. */}
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 pt-[53svh] pb-12 md:pt-0 md:pb-32 text-center">
           <Reveal>
             <h1 className="mt-6 font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.08] text-white">
               Transform your business with <span className="text-gradient">intelligent AI</span>
@@ -253,9 +254,6 @@ const Home: React.FC = () => {
 
       {/* Technologies we deploy on */}
       <TechStack />
-
-      {/* Official partner — Traffic */}
-      <PartnerSpotlight />
 
       <CtaBand />
     </>

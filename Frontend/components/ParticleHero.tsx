@@ -462,7 +462,7 @@ const ParticleHero: React.FC<{ className?: string }> = ({ className = '' }) => {
         particles.rotation.y = smx * 0.16;
         particles.rotation.x = -smy * 0.09;
         const scroll = window.scrollY;
-        const yBase = isMobile ? 1.4 : 0.5;
+        const yBase = isMobile ? 0.1 : 0.5;
         particles.position.y = yBase + Math.sin(t * 0.25) * 0.06 + scroll * 0.0016;
         camera.position.z = 7.4 + Math.min(scroll, 900) * 0.0009;
 
@@ -525,7 +525,9 @@ const ParticleHero: React.FC<{ className?: string }> = ({ className = '' }) => {
   }, []);
 
   return (
-    <div className={`absolute inset-0 ${className}`}>
+    // On phones the canvas is constrained to the top zone so particles can never
+    // overlap the headline/CTAs below; full-bleed backdrop on md+.
+    <div className={`absolute top-0 left-0 right-0 h-[52svh] md:h-auto md:bottom-0 ${className}`}>
       <div ref={containerRef} className="absolute inset-0" aria-hidden="true" />
 
       {/* Active-form indicator (bottom-right) */}
@@ -542,8 +544,8 @@ const ParticleHero: React.FC<{ className?: string }> = ({ className = '' }) => {
         </div>
       </div>
 
-      {/* Dot navigation (bottom-center) — 44px hit areas around small visual dots */}
-      <div className="pointer-events-auto absolute bottom-1 left-1/2 z-20 flex -translate-x-1/2 gap-0.5">
+      {/* Dot navigation (bottom-center) — 44px hit areas; hidden on phones */}
+      <div className="pointer-events-auto absolute bottom-1 left-1/2 z-20 hidden sm:flex -translate-x-1/2 gap-0.5">
         {SHAPE_NAMES.map((name, i) => (
           <button
             key={name}

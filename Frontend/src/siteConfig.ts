@@ -3,10 +3,18 @@
 
 const env = (import.meta as any).env || {};
 
+// Guarantee an absolute https URL with no trailing slash — so JSON-LD / breadcrumb
+// item URLs are always valid even if VITE_SITE_URL is set without a scheme.
+function normalizeSiteUrl(raw: string): string {
+  let s = (raw || '').trim().replace(/\/+$/, '');
+  if (!/^https?:\/\//i.test(s)) s = 'https://' + s.replace(/^\/+/, '');
+  return s || 'https://www.seekersai.org';
+}
+
 export const SITE = {
   name: 'Seekers AI',
   legalName: 'Seekers AI',
-  url: (env.VITE_SITE_URL || 'https://www.seekersai.org').replace(/\/$/, ''),
+  url: normalizeSiteUrl(env.VITE_SITE_URL || 'https://www.seekersai.org'),
   email: env.VITE_CONTACT_EMAIL || 'team@seekersai.org',
   phones: ['01044332566', '01044443752'],
   city: 'Cairo',

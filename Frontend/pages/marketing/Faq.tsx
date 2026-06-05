@@ -20,7 +20,7 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
       { '@type': 'ListItem', position: 2, name: 'FAQ', item: `${SITE.url}/faq` },
     ],
   },

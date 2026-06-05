@@ -88,6 +88,22 @@ export const STATS: Stat[] = [
   { value: 100, suffix: '%', label: 'Automation', desc: 'Eliminate manual, repetitive enterprise tasks.', icon: 'autorenew' },
 ];
 
+export interface Tech {
+  name: string;
+  icon: string;
+}
+
+// Technologies we deploy on. `icon` is a Material Symbol; swap for brand logos
+// later by dropping SVGs in src/assets/tech/ (see TechStack component).
+export const TECH: Tech[] = [
+  { name: 'Amazon Web Services', icon: 'cloud' },
+  { name: 'Microsoft Azure', icon: 'cloud_queue' },
+  { name: 'Google Cloud', icon: 'cloud_circle' },
+  { name: 'Meta', icon: 'groups' },
+  { name: 'OpenAI', icon: 'neurology' },
+  { name: 'Data Centers', icon: 'dns' },
+];
+
 export interface Industry {
   icon: string;
   name: string;

@@ -1,6 +1,9 @@
 import React, { Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import ProcessTimeline from '../../components/ProcessTimeline';
+import ClientsMarquee from '../../components/ClientsMarquee';
+import TechStack from '../../components/TechStack';
+import PartnerSpotlight from '../../components/PartnerSpotlight';
 import CtaBand from '../../components/CtaBand';
 import Seo from '../../components/Seo';
 import CountUp from '../../components/CountUp';
@@ -182,6 +185,9 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Clients — auto-loads logos from src/assets/clients/ (hidden when empty) */}
+      <ClientsMarquee />
+
       {/* Impact — bento grid */}
       <section id="impact" className="scroll-mt-24 md:scroll-mt-28 relative z-10 overflow-hidden py-16 sm:py-28">
         {/* parallax glow layers */}
@@ -244,6 +250,12 @@ const Home: React.FC = () => {
         </Reveal>
         <Reveal delay={120}><ProcessTimeline /></Reveal>
       </section>
+
+      {/* Technologies we deploy on */}
+      <TechStack />
+
+      {/* Official partner — Traffic */}
+      <PartnerSpotlight />
 
       <CtaBand />
     </>

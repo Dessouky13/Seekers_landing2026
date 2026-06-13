@@ -118,8 +118,7 @@ const Home: React.FC = () => {
               E: The AI workforce built for MENA businesses
             */}
             <h1 className="mt-6 font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.08] text-white">
-              Automate your conversations.<br className="hidden sm:block" />{' '}
-              <span className="text-gradient">Close more deals.</span>
+              The AI workforce built for <span className="text-gradient">MENA businesses</span>
             </h1>
           </Reveal>
           <Reveal delay={220}>

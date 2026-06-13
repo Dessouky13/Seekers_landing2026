@@ -15,7 +15,7 @@ const WhatsAppButton: React.FC = () => {
 
   return (
     <a
-      href="https://wa.me/201044332566?text=Hi%20Seekers%20AI%2C%20I%27d%20like%20to%20learn%20more%20about%20your%20AI%20automation%20services."
+      href="https://wa.me/201044443752?text=Hi%20Seekers%20AI%2C%20I%27d%20like%20to%20learn%20more%20about%20your%20AI%20automation%20services."
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Seekers AI on WhatsApp"

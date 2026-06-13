@@ -1,38 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Reveal, useParallax } from './Reveal';
+import { Reveal } from './Reveal';
 
 interface CtaBandProps {
   title?: string;
   subtitle?: string;
 }
 
-/** Reusable bottom-of-page call-to-action band with parallax depth layers. */
 const CtaBand: React.FC<CtaBandProps> = ({
   title = 'Ready to transform your business?',
   subtitle = 'Tell us about your goals and a Seekers strategist will reach out within one business day.',
 }) => {
-  const glow = useParallax(0.3);
-  const orbA = useParallax(-0.22);
-  const orbB = useParallax(0.16);
-
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 relative z-10">
       <Reveal>
-        <div className="border-glow bg-grid relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] px-6 sm:px-12 py-16 sm:py-24 text-center">
-          {/* parallax depth layers */}
-          <div
-            className="pointer-events-none absolute -top-28 left-1/2 -translate-x-1/2 w-[70%] h-56 bg-primary/25 blur-[110px] rounded-full"
-            style={{ transform: `translate(-50%, ${glow}px)` }}
-          />
-          <div
-            className="pointer-events-none absolute -left-10 top-1/2 size-40 rounded-full border border-primary/15"
-            style={{ transform: `translateY(${orbA}px)` }}
-          />
-          <div
-            className="pointer-events-none absolute -right-8 bottom-2 size-28 rounded-full bg-accent/10 blur-2xl"
-            style={{ transform: `translateY(${orbB}px)` }}
-          />
+        <div className="border-glow relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] px-6 sm:px-12 py-16 sm:py-24 text-center">
+          {/* static depth layers */}
+          <div className="pointer-events-none absolute -top-28 left-1/2 -translate-x-1/2 w-[70%] h-56 bg-primary/25 blur-[110px] rounded-full" />
+          <div className="pointer-events-none absolute -left-10 top-1/2 size-40 rounded-full border border-primary/15" />
+          <div className="pointer-events-none absolute -right-8 bottom-2 size-28 rounded-full bg-accent/10 blur-2xl" />
 
           <Reveal className="relative">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.25em] text-primary backdrop-blur-md mb-6">

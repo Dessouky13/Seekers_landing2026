@@ -30,8 +30,11 @@ const WhatsAppButton: React.FC = () => {
 
       {/* Button */}
       <span className="relative flex size-14 shrink-0">
-        {/* Pulsing attention ring */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-25 pointer-events-none" />
+        {/* Attention ring — 3 pulses then stops (not an infinite distraction) */}
+        <span
+          className="absolute inset-0 rounded-full bg-[#25D366] opacity-25 pointer-events-none"
+          style={{ animation: 'ping 1.2s cubic-bezier(0,0,0.2,1) 3' }}
+        />
         {/* Icon circle */}
         <span className="relative flex size-14 items-center justify-center rounded-full bg-[#25D366] shadow-[0_8px_32px_rgba(37,211,102,0.45)] hover:scale-110 active:scale-95 transition-transform duration-200">
           <svg viewBox="0 0 24 24" className="size-7 fill-white" aria-hidden="true">

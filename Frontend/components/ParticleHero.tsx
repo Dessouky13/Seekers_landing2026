@@ -425,6 +425,7 @@ const ParticleHero: React.FC<{ className?: string }> = ({ className = '' }) => {
     }
 
     const animate = () => {
+      if (heroPaused) { rafId = 0; return; }
       rafId = requestAnimationFrame(animate);
       if (!material || !geometry || !particles) return;
       const delta = clock.getDelta();
@@ -510,10 +511,27 @@ const ParticleHero: React.FC<{ className?: string }> = ({ className = '' }) => {
     const ro = new ResizeObserver(onResize);
     ro.observe(container);
 
+    // Pause the RAF loop when the hero is scrolled out of view — saves significant
+    // GPU work on all non-hero sections and inner pages.
+    let heroPaused = false;
+    const visObs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && heroPaused) {
+          heroPaused = false;
+          animate();
+        } else if (!entry.isIntersecting && !heroPaused) {
+          heroPaused = true;
+        }
+      },
+      { threshold: 0, rootMargin: '200px 0px' }
+    );
+    visObs.observe(container);
+
     return () => {
       disposed = true;
       cancelAnimationFrame(rafId);
       ro.disconnect();
+      visObs.disconnect();
       window.removeEventListener('mousemove', onMouse);
       container.removeEventListener('pointermove', onPointerMove);
       container.removeEventListener('pointerleave', onPointerLeave);

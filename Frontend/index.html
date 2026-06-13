@@ -49,9 +49,9 @@
   }
   </script>
 
-  <!-- Favicon — branded mark on dark background, served from this domain so it
-       renders on Google's white results background (no more blank/white circle) -->
-  <link rel="icon" type="image/png" sizes="any" href="/favicon.png?v=2">
+  <!-- Favicon: .ico first (Google Search + legacy browsers), PNG for modern browsers -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>

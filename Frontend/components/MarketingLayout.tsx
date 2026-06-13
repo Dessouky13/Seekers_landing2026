@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import WhatsAppButton from './WhatsAppButton';
 import { useParallax } from './Reveal';
 
 /** Scrolls to top on route change, or to the #hash target when present. */
@@ -47,6 +48,7 @@ const MarketingLayout: React.FC<{ children?: React.ReactNode }> = ({ children })
       <Navbar />
       <main className="relative z-10">{children ?? <Outlet />}</main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

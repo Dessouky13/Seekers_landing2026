@@ -3,11 +3,16 @@ import { Reveal } from './Reveal';
 import Tilt from './Tilt';
 import { TECH } from '../src/content';
 
-/**
- * "Technologies We Deploy On" — premium icon+name cards for the platforms we
- * build on. Trademark-safe (no embedded brand logos); drop official SVGs in
- * src/assets/tech/ later to upgrade. Pointer-tilt + hover glow.
- */
+// Brand logo SVGs via SimpleIcons CDN — official brand colors on dark background.
+// Falls back to Material Symbol if image fails to load.
+const BRAND: Record<string, { slug: string; color: string }> = {
+  'Amazon Web Services': { slug: 'amazonaws', color: 'FF9900' },
+  'Microsoft Azure': { slug: 'microsoftazure', color: '0078D4' },
+  'Google Cloud': { slug: 'googlecloud', color: '4285F4' },
+  'Meta': { slug: 'meta', color: '0866FF' },
+  'OpenAI': { slug: 'openai', color: 'FFFFFF' },
+};
+
 const TechStack: React.FC = () => (
   <section id="technologies" className="scroll-mt-24 md:scroll-mt-28 max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 relative z-10">
     <Reveal className="text-center mb-12 sm:mb-16">
@@ -19,18 +24,39 @@ const TechStack: React.FC = () => (
     </Reveal>
 
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
-      {TECH.map((t, idx) => (
-        <Reveal key={t.name} delay={(idx % 6) * 70}>
-          <Tilt max={9} className="h-full">
-            <div className="presentation-card sheen group flex h-full flex-col items-center justify-center gap-4 rounded-3xl p-5 sm:p-7 text-center">
-              <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
-                <span className="material-symbols-outlined text-3xl">{t.icon}</span>
+      {TECH.map((t, idx) => {
+        const brand = BRAND[t.name];
+        return (
+          <Reveal key={t.name} delay={(idx % 6) * 70}>
+            <Tilt max={9} className="h-full">
+              <div className="presentation-card sheen group flex h-full flex-col items-center justify-center gap-4 rounded-3xl p-5 sm:p-7 text-center">
+                <div className="flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20">
+                  {brand ? (
+                    <>
+                      <img
+                        src={`https://cdn.simpleicons.org/${brand.slug}/${brand.color}`}
+                        alt={`${t.name} logo`}
+                        loading="lazy"
+                        className="size-8 object-contain"
+                        onError={(e) => {
+                          const el = e.currentTarget;
+                          el.style.display = 'none';
+                          const fb = el.nextElementSibling as HTMLElement | null;
+                          if (fb) fb.style.display = 'inline';
+                        }}
+                      />
+                      <span className="material-symbols-outlined text-3xl" style={{ display: 'none' }}>{t.icon}</span>
+                    </>
+                  ) : (
+                    <span className="material-symbols-outlined text-3xl">{t.icon}</span>
+                  )}
+                </div>
+                <span className="font-display text-sm font-semibold leading-tight text-white">{t.name}</span>
               </div>
-              <span className="font-display text-sm font-semibold leading-tight text-white">{t.name}</span>
-            </div>
-          </Tilt>
-        </Reveal>
-      ))}
+            </Tilt>
+          </Reveal>
+        );
+      })}
     </div>
   </section>
 );

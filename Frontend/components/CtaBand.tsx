@@ -51,7 +51,7 @@ const CtaBand: React.FC<CtaBandProps> = ({
               to="/contact"
               className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-primary text-background-dark rounded-2xl font-display text-sm font-bold uppercase tracking-[0.15em] shadow-[0_24px_60px_rgba(161,158,255,0.45)] hover:scale-[1.03] active:scale-95 transition-all"
             >
-              Book a Discovery Call
+              Get your free AI audit
               <span className="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
             </Link>
             <Link
@@ -61,6 +61,9 @@ const CtaBand: React.FC<CtaBandProps> = ({
               Explore Solutions
             </Link>
           </div>
+          <p className="relative mt-4 font-mono text-[10px] text-slate-500 tracking-[0.15em] uppercase">
+            Free 30-min call &nbsp;·&nbsp; No commitment &nbsp;·&nbsp; Response within 1 business day
+          </p>
         </div>
       </Reveal>
     </section>

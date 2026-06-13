@@ -8,7 +8,7 @@ import Seo from '../../components/Seo';
 import CountUp from '../../components/CountUp';
 import Tilt from '../../components/Tilt';
 import { Reveal, useParallax } from '../../components/Reveal';
-import { SOLUTIONS, STATS } from '../../src/content';
+import { SOLUTIONS, STATS, INDUSTRIES } from '../../src/content';
 import { SITE } from '../../src/siteConfig';
 
 // Code-split the heavy three.js hero so it doesn't block first paint / LCP.
@@ -109,26 +109,38 @@ const Home: React.FC = () => {
             on md+ it sits at the bottom over the full-bleed particle backdrop. */}
         <div className="relative z-10 max-w-7xl mx-auto w-full px-5 sm:px-8 pt-[53svh] pb-12 md:pt-0 md:pb-32 text-center">
           <Reveal>
+            {/*
+              HEADLINE OPTIONS — uncomment whichever you prefer, keep one active:
+              A (live): Automate your conversations. Close more deals.
+              B: Never miss a WhatsApp lead again
+              C: Your 24/7 AI sales team — fluent in Arabic
+              D: Stop losing leads to slow response times
+              E: The AI workforce built for MENA businesses
+            */}
             <h1 className="mt-6 font-display text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.08] text-white">
-              Transform your business with <span className="text-gradient">intelligent AI</span>
+              Automate your conversations.<br className="hidden sm:block" />{' '}
+              <span className="text-gradient">Close more deals.</span>
             </h1>
           </Reveal>
           <Reveal delay={220}>
             <p className="mt-5 mx-auto max-w-xl font-body text-sm sm:text-base md:text-lg text-slate-300/90 leading-relaxed">
-              We design, deploy, and optimize autonomous AI agents that handle support, sales, and operations —
-              24/7, across every channel.
+              AI agents fluent in Arabic, English &amp; Franco — answering every WhatsApp message,
+              qualifying every lead, and running your back-office around the clock.
             </p>
           </Reveal>
           <Reveal delay={320}>
             <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/contact" className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-primary text-background-dark rounded-2xl font-display text-sm font-bold uppercase tracking-[0.15em] shadow-[0_24px_60px_rgba(161,158,255,0.45)] hover:scale-[1.03] active:scale-95 transition-all">
-                Book a Discovery Call
+                Get your free AI audit
                 <span className="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
               </Link>
               <Link to="/solutions" className="w-full sm:w-auto px-8 py-4 rounded-2xl border border-white/15 bg-white/[0.03] backdrop-blur-md font-display text-sm font-medium uppercase tracking-[0.15em] text-slate-200 hover:border-primary/50 hover:text-white transition-all">
                 Explore Solutions
               </Link>
             </div>
+            <p className="mt-4 font-mono text-[10px] text-slate-500 tracking-[0.15em] uppercase">
+              Free 30-min call &nbsp;·&nbsp; No commitment &nbsp;·&nbsp; Response within 1 business day
+            </p>
           </Reveal>
         </div>
 
@@ -188,6 +200,37 @@ const Home: React.FC = () => {
 
       {/* Clients — auto-loads logos from src/assets/clients/ (hidden when empty) */}
       <ClientsMarquee />
+
+      {/* Industries teaser */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 relative z-10">
+        <Reveal className="mb-10 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <p className="font-mono text-primary text-[10px] font-medium uppercase tracking-[0.3em] mb-4">Industries we serve</p>
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+              Built for your industry
+            </h2>
+          </div>
+          <Link to="/industries" className="group inline-flex items-center gap-2 font-display text-sm font-semibold text-primary hover:text-white transition-colors whitespace-nowrap">
+            See all industries
+            <span className="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
+          </Link>
+        </Reveal>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          {INDUSTRIES.map((ind, idx) => (
+            <Reveal key={ind.name} delay={(idx % 6) * 60}>
+              <Link
+                to="/industries"
+                className="presentation-card sheen group flex flex-col items-center text-center gap-3 p-5 sm:p-6 rounded-2xl hover:border-primary/30 transition-all"
+              >
+                <div className="size-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                  <span className="material-symbols-outlined text-xl">{ind.icon}</span>
+                </div>
+                <span className="font-display text-sm font-semibold leading-tight text-white">{ind.name}</span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       {/* Impact — bento grid */}
       <section id="impact" className="scroll-mt-24 md:scroll-mt-28 relative z-10 overflow-hidden py-16 sm:py-28">
